@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AvaBid - Вход</title>
+    <link rel="icon" type="image/png" href="https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/2.png">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body class="login-body">
+    <div class="login-overlay">
+        <div class="login-modal">
+            <div class="login-left">
+                <a href="../index.html" class="close-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </a>
+
+                <div class="login-header">
+                    <img src="https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/2.png" alt="AvaBid Logo" class="login-logo">
+                    <h1>Добро пожаловать!</h1>
+                    <p>Войдите в своей аккаунт, чтобы продолжить и получить доступ ко всем возможностям платформы.</p>
+                </div>
+
+                <form class="login-form" id="login-form">
+                    <div class="input-group">
+                      <label for="email">Email</label>
+                      <input type="email" id="email" name="email" required>
+                    </div>
+
+                    <div class="input-group">
+                        <div class="label-row">
+                          <label for="password">Пароль</label>
+                          <a href="recovery.html" class="forgot-link">Забыли пароль?</a>
+                        </div>
+                       <input type="password" id="password" name="password" required>
+                    </div>
+
+                   <p id="login-error" style="color: #c0392b; display: none; text-align: center; font-size: 14px;"></p>
+
+                  <button type="submit" class="login-btn" id="login-submit">Войти</button>
+                </form>
+
+                <div class="register-link">
+                    Впервые у нас? <a href="register.html">Зарегистрируйтесь</a>
+                </div>
+            </div>
+
+            <div class="login-right"></div>
+        </div>
+    </div>
+    <script src="../auth.js"></script>
+<script>
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value;
+        const errorEl = document.getElementById('login-error');
+        const submitBtn = document.getElementById('login-submit');
+
+        errorEl.style.display = 'none';
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Вход...';
+
+        try {
+            await login(email, password);
+            window.location.href = 'profile.html';
+        } catch (err) {
+            errorEl.textContent = err.message;
+            errorEl.style.display = 'block';
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Войти';
+        }
+    });
+</script>
+</body>
+</html>

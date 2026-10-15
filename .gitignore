@@ -1,0 +1,10 @@
+node_modules/
+.env
+.env.*
+server/node_modules/
+server/.env
+server/.env.*
+*.db
+*.db-journal
+.DS_Store
+.vscode

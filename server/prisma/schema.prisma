@@ -1,0 +1,114 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Role {
+  id    Int    @id @default(autoincrement())
+  name  String @unique
+  users User[]
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String   @unique
+  password  String
+  phone     String?
+  balance   Float    @default(0)
+  createdAt DateTime @default(now())
+  roleId    Int
+  role      Role     @relation(fields: [roleId], references: [id])
+
+  lots         Lot[]
+  bids         Bid[]
+  transactions Transaction[]
+}
+
+model Category {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+  lots Lot[]
+}
+
+model StatusLot {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+  lots Lot[]
+}
+
+model Lot {
+  id          Int      @id @default(autoincrement())
+  name        String
+  description String?
+  startPrice  Float
+  stepMin     Float
+  createdAt   DateTime @default(now())
+  endTime     DateTime
+
+  userId     Int
+  user       User      @relation(fields: [userId], references: [id])
+  categoryId Int
+  category   Category  @relation(fields: [categoryId], references: [id])
+  statusId   Int
+  status     StatusLot @relation(fields: [statusId], references: [id])
+
+  bids         Bid[]
+  images       LotImage[]
+  files        LotFile[]
+  transactions Transaction[]
+}
+
+model LotImage {
+  id       Int    @id @default(autoincrement())
+  imageUrl String
+  lotId    Int
+  lot      Lot    @relation(fields: [lotId], references: [id])
+}
+
+model LotFile {
+  id         Int     @id @default(autoincrement())
+  fileUrl    String
+  fileFormat String?
+  lotId      Int
+  lot        Lot     @relation(fields: [lotId], references: [id])
+}
+
+model Bid {
+  id           Int       @id @default(autoincrement())
+  currentPrice Float
+  createdAt    DateTime  @default(now())
+  endTime      DateTime?
+
+  lotId  Int
+  lot    Lot  @relation(fields: [lotId], references: [id])
+  userId Int
+  user   User @relation(fields: [userId], references: [id])
+
+  transactions Transaction[]
+}
+
+model StatusTransaction {
+  id           Int           @id @default(autoincrement())
+  name         String        @unique
+  transactions Transaction[]
+}
+
+model Transaction {
+  id         Int      @id @default(autoincrement())
+  finalPrice Float
+
+  userId   Int
+  user     User            @relation(fields: [userId], references: [id])
+  lotId    Int
+  lot      Lot             @relation(fields: [lotId], references: [id])
+  bidId    Int
+  bid      Bid             @relation(fields: [bidId], references: [id])
+  statusId Int
+  status   StatusTransaction @relation(fields: [statusId], references: [id])
+}

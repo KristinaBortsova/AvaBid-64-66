@@ -1,0 +1,17 @@
+{
+  "name": "avabid",
+  "version": "1.0.0",
+  "description": "",
+  "main": "frontend.js",
+  "scripts": {
+  "build:css": "tailwindcss -i ./src/input.css -o ./style.css --minify",
+  "watch:css": "tailwindcss -i ./src/input.css -o ./style.css --watch"
+},
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "tailwindcss": "^3.4.19"
+  }
+}

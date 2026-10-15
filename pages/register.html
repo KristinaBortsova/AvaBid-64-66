@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AvaBid - Регистрация</title>
+    <link rel="icon" type="image/png" href="https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/2.png">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body class="login-body">
+    <div class="login-overlay">
+        <div class="login-modal">
+            <div class="login-left">
+                <a href="login.html" class="close-btn">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </a>
+
+                <div class="login-header">
+                    <img src="https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/2.png" alt="AvaBid Logo" class="login-logo">
+                    <h1>Впервые у нас?</h1>
+                    <p>Зарегистрируйтесь, чтобы стать частью творческого мира</p>
+                </div>
+
+                <form class="login-form" id="register-form">
+                   <div class="input-group">
+                      <label for="reg-username">Имя пользователя</label>
+                      <input type="text" id="reg-username" name="name" required>
+                    </div>
+
+                    <div class="input-group">
+                      <label for="reg-email">Электронная почта</label>
+                      <input type="email" id="reg-email" name="email" required>
+                    </div>
+
+                    <div class="input-group">
+                      <label for="reg-password">Пароль</label>
+                      <input type="password" id="reg-password" name="password" required minlength="6">
+                    </div>
+
+                    <p id="reg-error" style="color: #c0392b; display: none; text-align: center; font-size: 14px;"></p>
+
+                    <button type="submit" class="login-btn" id="reg-submit">Зарегистрироваться</button>
+                </form>
+            </div>
+            <div class="login-right"></div>
+        </div>
+    </div>
+    <script src="../auth.js"></script>
+<script>
+    document.getElementById('register-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const name = document.getElementById('reg-username').value.trim();
+        const email = document.getElementById('reg-email').value.trim();
+        const password = document.getElementById('reg-password').value;
+        const errorEl = document.getElementById('reg-error');
+        const submitBtn = document.getElementById('reg-submit');
+
+        errorEl.style.display = 'none';
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Регистрация...';
+
+        try {
+            await register(name, email, password);
+            window.location.href = 'profile.html';
+        } catch (err) {
+            errorEl.textContent = err.message;
+            errorEl.style.display = 'block';
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Зарегистрироваться';
+        }
+    });
+</script>
+</body>
+</html>

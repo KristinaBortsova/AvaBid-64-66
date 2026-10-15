@@ -1,0 +1,1928 @@
+*, ::before, ::after {
+  --tw-border-spacing-x: 0;
+  --tw-border-spacing-y: 0;
+  --tw-translate-x: 0;
+  --tw-translate-y: 0;
+  --tw-rotate: 0;
+  --tw-skew-x: 0;
+  --tw-skew-y: 0;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  --tw-pan-x:  ;
+  --tw-pan-y:  ;
+  --tw-pinch-zoom:  ;
+  --tw-scroll-snap-strictness: proximity;
+  --tw-gradient-from-position:  ;
+  --tw-gradient-via-position:  ;
+  --tw-gradient-to-position:  ;
+  --tw-ordinal:  ;
+  --tw-slashed-zero:  ;
+  --tw-numeric-figure:  ;
+  --tw-numeric-spacing:  ;
+  --tw-numeric-fraction:  ;
+  --tw-ring-inset:  ;
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: rgb(59 130 246 / 0.5);
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  --tw-shadow: 0 0 #0000;
+  --tw-shadow-colored: 0 0 #0000;
+  --tw-blur:  ;
+  --tw-brightness:  ;
+  --tw-contrast:  ;
+  --tw-grayscale:  ;
+  --tw-hue-rotate:  ;
+  --tw-invert:  ;
+  --tw-saturate:  ;
+  --tw-sepia:  ;
+  --tw-drop-shadow:  ;
+  --tw-backdrop-blur:  ;
+  --tw-backdrop-brightness:  ;
+  --tw-backdrop-contrast:  ;
+  --tw-backdrop-grayscale:  ;
+  --tw-backdrop-hue-rotate:  ;
+  --tw-backdrop-invert:  ;
+  --tw-backdrop-opacity:  ;
+  --tw-backdrop-saturate:  ;
+  --tw-backdrop-sepia:  ;
+  --tw-contain-size:  ;
+  --tw-contain-layout:  ;
+  --tw-contain-paint:  ;
+  --tw-contain-style:  ;
+}
+
+::backdrop {
+  --tw-border-spacing-x: 0;
+  --tw-border-spacing-y: 0;
+  --tw-translate-x: 0;
+  --tw-translate-y: 0;
+  --tw-rotate: 0;
+  --tw-skew-x: 0;
+  --tw-skew-y: 0;
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  --tw-pan-x:  ;
+  --tw-pan-y:  ;
+  --tw-pinch-zoom:  ;
+  --tw-scroll-snap-strictness: proximity;
+  --tw-gradient-from-position:  ;
+  --tw-gradient-via-position:  ;
+  --tw-gradient-to-position:  ;
+  --tw-ordinal:  ;
+  --tw-slashed-zero:  ;
+  --tw-numeric-figure:  ;
+  --tw-numeric-spacing:  ;
+  --tw-numeric-fraction:  ;
+  --tw-ring-inset:  ;
+  --tw-ring-offset-width: 0px;
+  --tw-ring-offset-color: #fff;
+  --tw-ring-color: rgb(59 130 246 / 0.5);
+  --tw-ring-offset-shadow: 0 0 #0000;
+  --tw-ring-shadow: 0 0 #0000;
+  --tw-shadow: 0 0 #0000;
+  --tw-shadow-colored: 0 0 #0000;
+  --tw-blur:  ;
+  --tw-brightness:  ;
+  --tw-contrast:  ;
+  --tw-grayscale:  ;
+  --tw-hue-rotate:  ;
+  --tw-invert:  ;
+  --tw-saturate:  ;
+  --tw-sepia:  ;
+  --tw-drop-shadow:  ;
+  --tw-backdrop-blur:  ;
+  --tw-backdrop-brightness:  ;
+  --tw-backdrop-contrast:  ;
+  --tw-backdrop-grayscale:  ;
+  --tw-backdrop-hue-rotate:  ;
+  --tw-backdrop-invert:  ;
+  --tw-backdrop-opacity:  ;
+  --tw-backdrop-saturate:  ;
+  --tw-backdrop-sepia:  ;
+  --tw-contain-size:  ;
+  --tw-contain-layout:  ;
+  --tw-contain-paint:  ;
+  --tw-contain-style:  ;
+}
+
+/*
+! tailwindcss v3.4.19 | MIT License | https://tailwindcss.com
+*/
+
+/*
+1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
+2. Allow adding a border to an element by just adding a border-width. (https://github.com/tailwindcss/tailwindcss/pull/116)
+*/
+
+*,
+::before,
+::after {
+  box-sizing: border-box;
+  /* 1 */
+  border-width: 0;
+  /* 2 */
+  border-style: solid;
+  /* 2 */
+  border-color: #e5e7eb;
+  /* 2 */
+}
+
+::before,
+::after {
+  --tw-content: '';
+}
+
+/*
+1. Use a consistent sensible line-height in all browsers.
+2. Prevent adjustments of font size after orientation changes in iOS.
+3. Use a more readable tab size.
+4. Use the user's configured `sans` font-family by default.
+5. Use the user's configured `sans` font-feature-settings by default.
+6. Use the user's configured `sans` font-variation-settings by default.
+7. Disable tap highlights on iOS
+*/
+
+html,
+:host {
+  line-height: 1.5;
+  /* 1 */
+  -webkit-text-size-adjust: 100%;
+  /* 2 */
+  -moz-tab-size: 4;
+  /* 3 */
+  -o-tab-size: 4;
+     tab-size: 4;
+  /* 3 */
+  font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  /* 4 */
+  font-feature-settings: normal;
+  /* 5 */
+  font-variation-settings: normal;
+  /* 6 */
+  -webkit-tap-highlight-color: transparent;
+  /* 7 */
+}
+
+/*
+1. Remove the margin in all browsers.
+2. Inherit line-height from `html` so users can set them as a class directly on the `html` element.
+*/
+
+body {
+  margin: 0;
+  /* 1 */
+  line-height: inherit;
+  /* 2 */
+}
+
+/*
+1. Add the correct height in Firefox.
+2. Correct the inheritance of border color in Firefox. (https://bugzilla.mozilla.org/show_bug.cgi?id=190655)
+3. Ensure horizontal rules are visible by default.
+*/
+
+hr {
+  height: 0;
+  /* 1 */
+  color: inherit;
+  /* 2 */
+  border-top-width: 1px;
+  /* 3 */
+}
+
+/*
+Add the correct text decoration in Chrome, Edge, and Safari.
+*/
+
+abbr:where([title]) {
+  -webkit-text-decoration: underline dotted;
+          text-decoration: underline dotted;
+}
+
+/*
+Remove the default font size and weight for headings.
+*/
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+/*
+Reset links to optimize for opt-in styling instead of opt-out.
+*/
+
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+/*
+Add the correct font weight in Edge and Safari.
+*/
+
+b,
+strong {
+  font-weight: bolder;
+}
+
+/*
+1. Use the user's configured `mono` font-family by default.
+2. Use the user's configured `mono` font-feature-settings by default.
+3. Use the user's configured `mono` font-variation-settings by default.
+4. Correct the odd `em` font sizing in all browsers.
+*/
+
+code,
+kbd,
+samp,
+pre {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  /* 1 */
+  font-feature-settings: normal;
+  /* 2 */
+  font-variation-settings: normal;
+  /* 3 */
+  font-size: 1em;
+  /* 4 */
+}
+
+/*
+Add the correct font size in all browsers.
+*/
+
+small {
+  font-size: 80%;
+}
+
+/*
+Prevent `sub` and `sup` elements from affecting the line height in all browsers.
+*/
+
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+sup {
+  top: -0.5em;
+}
+
+/*
+1. Remove text indentation from table contents in Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=999088, https://bugs.webkit.org/show_bug.cgi?id=201297)
+2. Correct table border color inheritance in all Chrome and Safari. (https://bugs.chromium.org/p/chromium/issues/detail?id=935729, https://bugs.webkit.org/show_bug.cgi?id=195016)
+3. Remove gaps between table borders by default.
+*/
+
+table {
+  text-indent: 0;
+  /* 1 */
+  border-color: inherit;
+  /* 2 */
+  border-collapse: collapse;
+  /* 3 */
+}
+
+/*
+1. Change the font styles in all browsers.
+2. Remove the margin in Firefox and Safari.
+3. Remove default padding in all browsers.
+*/
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit;
+  /* 1 */
+  font-feature-settings: inherit;
+  /* 1 */
+  font-variation-settings: inherit;
+  /* 1 */
+  font-size: 100%;
+  /* 1 */
+  font-weight: inherit;
+  /* 1 */
+  line-height: inherit;
+  /* 1 */
+  letter-spacing: inherit;
+  /* 1 */
+  color: inherit;
+  /* 1 */
+  margin: 0;
+  /* 2 */
+  padding: 0;
+  /* 3 */
+}
+
+/*
+Remove the inheritance of text transform in Edge and Firefox.
+*/
+
+button,
+select {
+  text-transform: none;
+}
+
+/*
+1. Correct the inability to style clickable types in iOS and Safari.
+2. Remove default button styles.
+*/
+
+button,
+input:where([type='button']),
+input:where([type='reset']),
+input:where([type='submit']) {
+  -webkit-appearance: button;
+  /* 1 */
+  background-color: transparent;
+  /* 2 */
+  background-image: none;
+  /* 2 */
+}
+
+/*
+Use the modern Firefox focus style for all focusable elements.
+*/
+
+:-moz-focusring {
+  outline: auto;
+}
+
+/*
+Remove the additional `:invalid` styles in Firefox. (https://github.com/mozilla/gecko-dev/blob/2f9eacd9d3d995c937b4251a5557d95d494c9be1/layout/style/res/forms.css#L728-L737)
+*/
+
+:-moz-ui-invalid {
+  box-shadow: none;
+}
+
+/*
+Add the correct vertical alignment in Chrome and Firefox.
+*/
+
+progress {
+  vertical-align: baseline;
+}
+
+/*
+Correct the cursor style of increment and decrement buttons in Safari.
+*/
+
+::-webkit-inner-spin-button,
+::-webkit-outer-spin-button {
+  height: auto;
+}
+
+/*
+1. Correct the odd appearance in Chrome and Safari.
+2. Correct the outline style in Safari.
+*/
+
+[type='search'] {
+  -webkit-appearance: textfield;
+  /* 1 */
+  outline-offset: -2px;
+  /* 2 */
+}
+
+/*
+Remove the inner padding in Chrome and Safari on macOS.
+*/
+
+::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+/*
+1. Correct the inability to style clickable types in iOS and Safari.
+2. Change font properties to `inherit` in Safari.
+*/
+
+::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  /* 1 */
+  font: inherit;
+  /* 2 */
+}
+
+/*
+Add the correct display in Chrome and Safari.
+*/
+
+summary {
+  display: list-item;
+}
+
+/*
+Removes the default spacing and border for appropriate elements.
+*/
+
+blockquote,
+dl,
+dd,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+hr,
+figure,
+p,
+pre {
+  margin: 0;
+}
+
+fieldset {
+  margin: 0;
+  padding: 0;
+}
+
+legend {
+  padding: 0;
+}
+
+ol,
+ul,
+menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/*
+Reset default styling for dialogs.
+*/
+
+dialog {
+  padding: 0;
+}
+
+/*
+Prevent resizing textareas horizontally by default.
+*/
+
+textarea {
+  resize: vertical;
+}
+
+/*
+1. Reset the default placeholder opacity in Firefox. (https://github.com/tailwindlabs/tailwindcss/issues/3300)
+2. Set the default placeholder color to the user's configured gray 400 color.
+*/
+
+input::-moz-placeholder, textarea::-moz-placeholder {
+  opacity: 1;
+  /* 1 */
+  color: #9ca3af;
+  /* 2 */
+}
+
+input::placeholder,
+textarea::placeholder {
+  opacity: 1;
+  /* 1 */
+  color: #9ca3af;
+  /* 2 */
+}
+
+/*
+Set the default cursor for buttons.
+*/
+
+button,
+[role="button"] {
+  cursor: pointer;
+}
+
+/*
+Make sure disabled buttons don't get the pointer cursor.
+*/
+
+:disabled {
+  cursor: default;
+}
+
+/*
+1. Make replaced elements `display: block` by default. (https://github.com/mozdevs/cssremedy/issues/14)
+2. Add `vertical-align: middle` to align replaced elements more sensibly by default. (https://github.com/jensimmons/cssremedy/issues/14#issuecomment-634934210)
+   This can trigger a poorly considered lint error in some tools but is included by design.
+*/
+
+img,
+svg,
+video,
+canvas,
+audio,
+iframe,
+embed,
+object {
+  display: block;
+  /* 1 */
+  vertical-align: middle;
+  /* 2 */
+}
+
+/*
+Constrain images and videos to the parent width and preserve their intrinsic aspect ratio. (https://github.com/mozdevs/cssremedy/issues/14)
+*/
+
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Make elements with the HTML hidden attribute stay hidden by default */
+
+[hidden]:where(:not([hidden="until-found"])) {
+  display: none;
+}
+
+body {
+  position: relative;
+  min-height: 100vh;
+  --tw-bg-opacity: 1;
+  background-color: rgb(245 247 245 / var(--tw-bg-opacity, 1));
+  font-family: "Alegreya Sans SC", sans-serif;
+  font-weight: 700;
+  --tw-text-opacity: 1;
+  color: rgb(95 110 99 / var(--tw-text-opacity, 1));
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  z-index: -10;
+  height: 100%;
+  width: 100%;
+  background-image: url('https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/editing_result_ccf73b25ac7911f18cf51ae74967528c_1.jpg');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.35;
+}
+
+/* ---- Общий контейнер ---- */
+
+.app-container {
+  display: flex;
+  min-height: 100vh;
+  gap: 0px;
+  padding: 1.25rem;
+}
+
+/* ---- Сайдбар ---- */
+
+.sidebar {
+  position: sticky;
+  top: 1.25rem;
+  display: flex;
+  width: 200px;
+  flex-direction: column;
+  border-radius: 20px;
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  height: calc(100vh - 40px);
+}
+
+.sidebar-logo {
+  margin-bottom: 2.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 700;
+  --tw-text-opacity: 1;
+  color: rgb(95 110 99 / var(--tw-text-opacity, 1));
+}
+
+.sidebar-logo img {
+  height: auto;
+  width: 100px;
+}
+
+.sidebar-nav {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-radius: 0.75rem;
+  --tw-bg-opacity: 1;
+  background-color: rgb(217 217 217 / var(--tw-bg-opacity, 1));
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  --tw-text-opacity: 1;
+  color: rgb(95 110 99 / var(--tw-text-opacity, 1));
+  text-decoration-line: none;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+.nav-item.active {
+  --tw-bg-opacity: 1;
+  background-color: rgb(166 166 166 / var(--tw-bg-opacity, 1));
+  --tw-text-opacity: 1;
+  color: rgb(240 248 242 / var(--tw-text-opacity, 1));
+}
+
+.nav-item:hover:not(.active) {
+  --tw-bg-opacity: 1;
+  background-color: rgb(192 192 192 / var(--tw-bg-opacity, 1));
+}
+
+.sidebar-footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.625rem;
+  text-align: center;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  line-height: 1.25;
+  --tw-text-opacity: 1;
+  color: rgb(122 143 128 / var(--tw-text-opacity, 1));
+}
+
+.sidebar-footer img {
+  width: 50px;
+}
+
+/* ---- Основной контент ---- */
+
+.main-content {
+  margin-left: 30px;
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.top-header {
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 20px;
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+}
+
+.top-header h1 {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  --tw-text-opacity: 1;
+  color: rgb(95 110 99 / var(--tw-text-opacity, 1));
+}
+
+.bell-btn {
+  display: flex;
+  height: 50px;
+  width: 50px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 200ms;
+}
+
+.bell-btn:hover {
+  --tw-scale-x: 1.05;
+  --tw-scale-y: 1.05;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.section-title {
+  margin-bottom: 1.25rem;
+  text-align: center;
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  --tw-text-opacity: 1;
+  color: rgb(95 110 99 / var(--tw-text-opacity, 1));
+}
+
+/* ---- Сетка лотов ---- */
+
+.lots-grid {
+  display: grid;
+  gap: 25px;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.lot-card {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  overflow: hidden;
+  border-radius: 15px;
+  border-width: 2px;
+  --tw-border-opacity: 1;
+  border-color: rgb(95 110 99 / var(--tw-border-opacity, 1));
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+  color: inherit;
+  text-decoration-line: none;
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+.lot-card:hover {
+  --tw-translate-y: -5px;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  --tw-shadow: 0 10px 20px rgba(95,110,99,0.2);
+  --tw-shadow-colored: 0 10px 20px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.lot-image-wrapper {
+  display: flex;
+  height: 250px;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  --tw-bg-opacity: 1;
+  background-color: rgb(249 249 249 / var(--tw-bg-opacity, 1));
+}
+
+.lot-image-wrapper img {
+  height: 100%;
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.lot-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.625rem;
+  padding: 15px;
+  font-weight: 400;
+}
+
+.lot-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.625rem;
+}
+
+.lot-name {
+  overflow-wrap: break-word;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  --tw-text-opacity: 1;
+  color: rgb(95 110 99 / var(--tw-text-opacity, 1));
+}
+
+.lot-time {
+  white-space: nowrap;
+  text-align: right;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  --tw-text-opacity: 1;
+  color: rgb(95 110 99 / var(--tw-text-opacity, 1));
+}
+
+.lot-price {
+  margin-top: auto;
+  font-size: 22px;
+  font-weight: 700;
+  --tw-text-opacity: 1;
+  color: rgb(53 63 55 / var(--tw-text-opacity, 1));
+}
+
+/* ---- Страница входа ---- */
+
+.login-body {
+  margin: 0px;
+  display: flex;
+  min-height: 100vh;
+  align-items: center;
+  justify-content: center;
+  --tw-bg-opacity: 1;
+  background-color: rgb(245 247 245 / var(--tw-bg-opacity, 1));
+}
+
+.login-overlay {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+}
+
+.login-modal {
+  position: relative;
+  display: flex;
+  height: 600px;
+  width: 100%;
+  max-width: 900px;
+  overflow: hidden;
+  border-radius: 25px;
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.login-left {
+  box-sizing: border-box;
+  display: flex;
+  flex-basis: 50%;
+  flex-direction: column;
+  justify-content: center;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+
+.login-right {
+  box-sizing: border-box;
+  flex-basis: 50%;
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+  background-image: url('https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/17a53499-85ef-4ffe-a290-c75537b7e4df%201.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.close-btn {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  display: flex;
+  height: 35px;
+  width: 35px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 5px;
+  border-width: 2px;
+  --tw-border-opacity: 1;
+  border-color: rgb(95 110 99 / var(--tw-border-opacity, 1));
+  --tw-text-opacity: 1;
+  color: rgb(95 110 99 / var(--tw-text-opacity, 1));
+  text-decoration-line: none;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+.close-btn:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(232 239 229 / var(--tw-bg-opacity, 1));
+}
+
+.login-logo {
+  margin-bottom: 1.25rem;
+  height: auto;
+  width: 80px;
+}
+
+.login-header h1 {
+  margin-bottom: 15px;
+  font-size: 28px;
+  text-transform: uppercase;
+  --tw-text-opacity: 1;
+  color: rgb(95 110 99 / var(--tw-text-opacity, 1));
+}
+
+.login-header p {
+  margin-bottom: 30px;
+  font-size: 15px;
+  line-height: 1.625;
+  --tw-text-opacity: 1;
+  color: rgb(122 143 128 / var(--tw-text-opacity, 1));
+}
+
+.login-form {
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.input-group label {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 700;
+  letter-spacing: 0.025em;
+  --tw-text-opacity: 1;
+  color: rgb(95 110 99 / var(--tw-text-opacity, 1));
+}
+
+.input-group input {
+  border-radius: 10px;
+  border-style: none;
+  --tw-bg-opacity: 1;
+  background-color: rgb(232 239 229 / var(--tw-bg-opacity, 1));
+  padding: 15px;
+  font-family: "Alegreya Sans SC", sans-serif;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  --tw-text-opacity: 1;
+  color: rgb(53 63 55 / var(--tw-text-opacity, 1));
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+.input-group input:focus {
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(95 110 99 / var(--tw-ring-opacity, 1));
+}
+
+.forgot-link {
+  font-size: 13px;
+  --tw-text-opacity: 1;
+  color: rgb(122 143 128 / var(--tw-text-opacity, 1));
+  text-decoration-line: none;
+}
+
+.forgot-link:hover {
+  text-decoration-line: underline;
+}
+
+.login-btn {
+  margin-top: 0.625rem;
+  cursor: pointer;
+  border-radius: 30px;
+  border-style: none;
+  --tw-bg-opacity: 1;
+  background-color: rgb(95 110 99 / var(--tw-bg-opacity, 1));
+  padding: 15px;
+  font-family: "Alegreya Sans SC", sans-serif;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+.login-btn:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(53 63 55 / var(--tw-bg-opacity, 1));
+}
+
+.register-link {
+  text-align: center;
+  font-size: 15px;
+  --tw-text-opacity: 1;
+  color: rgb(95 110 99 / var(--tw-text-opacity, 1));
+}
+
+.register-link a {
+  font-weight: 700;
+  --tw-text-opacity: 1;
+  color: rgb(95 110 99 / var(--tw-text-opacity, 1));
+  text-decoration-line: underline;
+}
+
+/* ---- Страница профиля ---- */
+
+.profile-header-card {
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 20px;
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+  padding: 30px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.profile-info {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+.avatar-placeholder {
+  display: flex;
+  height: 100px;
+  width: 100px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  --tw-bg-opacity: 1;
+  background-color: rgb(95 110 99 / var(--tw-bg-opacity, 1));
+}
+
+.profile-text h2 {
+  margin-bottom: 5px;
+  font-size: 32px;
+  --tw-text-opacity: 1;
+  color: rgb(95 110 99 / var(--tw-text-opacity, 1));
+}
+
+.profile-text p {
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 400;
+  --tw-text-opacity: 1;
+  color: rgb(122 143 128 / var(--tw-text-opacity, 1));
+}
+
+.edit-btn {
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  gap: 0.625rem;
+  border-radius: 0.75rem;
+  border-style: none;
+  --tw-bg-opacity: 1;
+  background-color: rgb(95 110 99 / var(--tw-bg-opacity, 1));
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  font-family: "Alegreya Sans SC", sans-serif;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 700;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+.edit-btn:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(53 63 55 / var(--tw-bg-opacity, 1));
+}
+
+.profile-grid {
+  display: grid;
+  flex-grow: 1;
+  gap: 1.25rem;
+  grid-template-columns: 1fr 2fr;
+}
+
+.profile-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  border-radius: 20px;
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+  padding: 30px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.action-btn {
+  cursor: pointer;
+  border-radius: 0.75rem;
+  border-style: none;
+  --tw-bg-opacity: 1;
+  background-color: rgb(217 217 217 / var(--tw-bg-opacity, 1));
+  padding: 18px;
+  text-align: left;
+  font-family: "Alegreya Sans SC", sans-serif;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+  --tw-text-opacity: 1;
+  color: rgb(95 110 99 / var(--tw-text-opacity, 1));
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+.action-btn:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(192 192 192 / var(--tw-bg-opacity, 1));
+}
+
+.profile-content {
+  border-radius: 20px;
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+  padding: 30px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.profile-content h2 {
+  margin-bottom: 30px;
+  font-size: 28px;
+  --tw-text-opacity: 1;
+  color: rgb(95 110 99 / var(--tw-text-opacity, 1));
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  --tw-text-opacity: 1;
+  color: rgb(166 166 166 / var(--tw-text-opacity, 1));
+  height: 60%;
+}
+
+.empty-state img {
+  width: 80px;
+  opacity: 0.5;
+}
+
+/* ---- Настройки ---- */
+
+.settings-menu {
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  border-radius: 20px;
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+  padding: 50px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.settings-btn {
+  width: 80%;
+  max-width: 600px;
+  cursor: pointer;
+  border-radius: 0.75rem;
+  border-style: none;
+  --tw-bg-opacity: 1;
+  background-color: rgb(217 217 217 / var(--tw-bg-opacity, 1));
+  padding: 18px;
+  text-align: center;
+  font-family: "Alegreya Sans SC", sans-serif;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+  --tw-text-opacity: 1;
+  color: rgb(95 110 99 / var(--tw-text-opacity, 1));
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+.settings-btn:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(192 192 192 / var(--tw-bg-opacity, 1));
+}
+
+.delete-btn {
+  margin-top: 30px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.close-settings-btn {
+  position: absolute;
+  top: 1.25rem;
+  right: 1.25rem;
+  display: flex;
+  height: 2.5rem;
+  width: 2.5rem;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  border-width: 2px;
+  --tw-border-opacity: 1;
+  border-color: rgb(95 110 99 / var(--tw-border-opacity, 1));
+  background-color: transparent;
+  --tw-text-opacity: 1;
+  color: rgb(95 110 99 / var(--tw-text-opacity, 1));
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+.close-settings-btn:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(232 239 229 / var(--tw-bg-opacity, 1));
+}
+
+/* ---- Восстановление пароля ---- */
+
+.recovery-card {
+  position: relative;
+  display: flex;
+  width: 100%;
+  max-width: 600px;
+  flex-direction: column;
+  border-radius: 25px;
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+.recovery-header {
+  margin-bottom: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.recovery-logo {
+  height: auto;
+  width: 60px;
+}
+
+.recovery-header h2 {
+  font-size: 1.5rem;
+  line-height: 2rem;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  --tw-text-opacity: 1;
+  color: rgb(95 110 99 / var(--tw-text-opacity, 1));
+}
+
+.recovery-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.lock-icon-box {
+  margin-bottom: 25px;
+  display: flex;
+  height: 80px;
+  width: 80px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 15px;
+  --tw-bg-opacity: 1;
+  background-color: rgb(95 110 99 / var(--tw-bg-opacity, 1));
+}
+
+.recovery-text {
+  margin-bottom: 25px;
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  --tw-text-opacity: 1;
+  color: rgb(95 110 99 / var(--tw-text-opacity, 1));
+}
+
+.recovery-form {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  gap: 25px;
+}
+
+.recovery-input {
+  width: 80%;
+  border-radius: 0.75rem;
+  border-style: none;
+  --tw-bg-opacity: 1;
+  background-color: rgb(217 217 217 / var(--tw-bg-opacity, 1));
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  padding-top: 18px;
+  padding-bottom: 18px;
+  font-family: "Alegreya Sans SC", sans-serif;
+  font-size: 1rem;
+  line-height: 1.5rem;
+  --tw-text-opacity: 1;
+  color: rgb(53 63 55 / var(--tw-text-opacity, 1));
+  outline: 2px solid transparent;
+  outline-offset: 2px;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+.recovery-input:focus {
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(95 110 99 / var(--tw-ring-opacity, 1));
+}
+
+.recovery-btn {
+  cursor: pointer;
+  border-radius: 30px;
+  border-style: none;
+  --tw-bg-opacity: 1;
+  background-color: rgb(95 110 99 / var(--tw-bg-opacity, 1));
+  padding-left: 2.5rem;
+  padding-right: 2.5rem;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  font-family: "Alegreya Sans SC", sans-serif;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+.recovery-btn:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(53 63 55 / var(--tw-bg-opacity, 1));
+}
+
+.password-inputs-wrapper {
+  margin-bottom: 30px;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 1.25rem;
+  text-align: left;
+}
+
+.password-inputs-wrapper .input-group {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.password-inputs-wrapper label {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  --tw-text-opacity: 1;
+  color: rgb(95 110 99 / var(--tw-text-opacity, 1));
+}
+
+.password-inputs-wrapper .recovery-input {
+  width: 100%;
+}
+
+.login-redirect-btn {
+  margin-left: auto;
+  margin-right: auto;
+  display: inline-block;
+  width: auto;
+  min-width: 200px;
+  text-align: center;
+  text-decoration-line: none;
+}
+
+/* ---- Категории ---- */
+
+.categories-grid {
+  display: flex;
+  flex-grow: 1;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  padding: 1.25rem;
+}
+
+.category-card {
+  position: relative;
+  height: 450px;
+  width: 350px;
+  overflow: hidden;
+  border-radius: 30px;
+  border-width: 5px;
+  --tw-border-opacity: 1;
+  border-color: rgb(95 110 99 / var(--tw-border-opacity, 1));
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+  text-decoration-line: none;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+.category-card:hover {
+  --tw-translate-y: -5px;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  --tw-shadow: 0 15px 30px rgba(95,110,99,0.3);
+  --tw-shadow-colored: 0 15px 30px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+}
+
+.category-card img {
+  display: block;
+  height: 100%;
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  opacity: 0.6;
+}
+
+.category-label {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 85%;
+  --tw-translate-x: -50%;
+  --tw-translate-y: -50%;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  border-radius: 15px;
+  border-width: 4px;
+  --tw-border-opacity: 1;
+  border-color: rgb(95 110 99 / var(--tw-border-opacity, 1));
+  padding-left: 0.625rem;
+  padding-right: 0.625rem;
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+  text-align: center;
+  font-size: 32px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  --tw-text-opacity: 1;
+  color: rgb(95 110 99 / var(--tw-text-opacity, 1));
+  background-color: rgba(255, 255, 255, 0.85);
+}
+
+/* ---- Подкатегории ---- */
+
+.subcategories-container {
+  flex-grow: 1;
+  border-radius: 20px;
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+  padding: 2.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.subcategories-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  justify-items: center;
+  gap: 30px;
+}
+
+.subcategory-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  text-decoration-line: none;
+  transition-property: transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+.subcategory-card:hover {
+  --tw-translate-y: -5px;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.subcategory-image {
+  aspect-ratio: 1 / 1;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 20px;
+  border-width: 5px;
+  --tw-border-opacity: 1;
+  border-color: rgb(95 110 99 / var(--tw-border-opacity, 1));
+  --tw-bg-opacity: 1;
+  background-color: rgb(245 247 245 / var(--tw-bg-opacity, 1));
+}
+
+.subcategory-image img {
+  display: block;
+  height: 100%;
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.subcategory-name {
+  text-align: center;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  --tw-text-opacity: 1;
+  color: rgb(95 110 99 / var(--tw-text-opacity, 1));
+}
+
+/* ---- О нас ---- */
+
+.about-container {
+  display: flex;
+  flex-grow: 1;
+  gap: 2.5rem;
+  border-radius: 20px;
+  background-color: rgb(255 255 255 / 0.8);
+  padding: 2.5rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.about-text {
+  display: flex;
+  flex: 2;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.about-text h2 {
+  margin-bottom: 0.625rem;
+  font-size: 32px;
+  text-transform: uppercase;
+  --tw-text-opacity: 1;
+  color: rgb(95 110 99 / var(--tw-text-opacity, 1));
+}
+
+.about-text p {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+  font-weight: 400;
+  line-height: 1.625;
+  --tw-text-opacity: 1;
+  color: rgb(122 143 128 / var(--tw-text-opacity, 1));
+}
+
+.about-buttons {
+  display: flex;
+  flex: 1 1 0%;
+  flex-direction: column;
+  justify-content: flex-start;
+  gap: 1.25rem;
+  padding-top: 0.625rem;
+}
+
+.about-btn {
+  cursor: pointer;
+  border-radius: 15px;
+  border-style: none;
+  --tw-bg-opacity: 1;
+  background-color: rgb(95 110 99 / var(--tw-bg-opacity, 1));
+  padding-left: 25px;
+  padding-right: 25px;
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+  text-align: left;
+  font-family: "Alegreya Sans SC", sans-serif;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  line-height: 1.25;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+.about-btn:hover {
+  --tw-translate-y: -0.125rem;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+  --tw-bg-opacity: 1;
+  background-color: rgb(53 63 55 / var(--tw-bg-opacity, 1));
+}
+
+/* ---- Страница лота ---- */
+
+.lot-detail-container {
+  display: grid;
+  flex-grow: 1;
+  gap: 30px;
+  border-radius: 20px;
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+  padding: 30px;
+  grid-template-columns: 1.5fr 1fr;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.lot-detail-left {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.lot-image-large {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 15px;
+  border-width: 5px;
+  --tw-border-opacity: 1;
+  border-color: rgb(95 110 99 / var(--tw-border-opacity, 1));
+  --tw-bg-opacity: 1;
+  background-color: rgb(245 247 245 / var(--tw-bg-opacity, 1));
+}
+
+.lot-image-large img {
+  height: auto;
+  max-height: 500px;
+  width: 100%;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+.lot-bid-info {
+  font-size: 28px;
+  font-weight: 700;
+  text-transform: uppercase;
+  --tw-text-opacity: 1;
+  color: rgb(95 110 99 / var(--tw-text-opacity, 1));
+}
+
+.lot-author {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  font-size: 1.5rem;
+  line-height: 2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  --tw-text-opacity: 1;
+  color: rgb(95 110 99 / var(--tw-text-opacity, 1));
+}
+
+.author-avatar {
+  height: 50px;
+  width: 50px;
+  overflow: hidden;
+  border-radius: 9999px;
+  border-width: 3px;
+  --tw-border-opacity: 1;
+  border-color: rgb(95 110 99 / var(--tw-border-opacity, 1));
+}
+
+.author-avatar img {
+  height: 100%;
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.lot-description {
+  margin-top: 0.625rem;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  --tw-text-opacity: 1;
+  color: rgb(122 143 128 / var(--tw-text-opacity, 1));
+}
+
+.lot-description span {
+  --tw-text-opacity: 1;
+  color: rgb(95 110 99 / var(--tw-text-opacity, 1));
+}
+
+.lot-detail-right {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.lot-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.action-btn-outline {
+  cursor: pointer;
+  border-radius: 9999px;
+  border-width: 4px;
+  --tw-border-opacity: 1;
+  border-color: rgb(95 110 99 / var(--tw-border-opacity, 1));
+  background-color: transparent;
+  padding: 15px;
+  font-family: "Alegreya Sans SC", sans-serif;
+  font-size: 22px;
+  font-weight: 700;
+  text-transform: uppercase;
+  --tw-text-opacity: 1;
+  color: rgb(95 110 99 / var(--tw-text-opacity, 1));
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+.action-btn-outline:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(95 110 99 / var(--tw-bg-opacity, 1));
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
+}
+
+.lot-timer-box {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border-radius: 20px;
+  border-width: 3px;
+  --tw-border-opacity: 1;
+  border-color: rgb(217 217 217 / var(--tw-border-opacity, 1));
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
+  padding: 1.25rem;
+  font-size: 42px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  --tw-text-opacity: 1;
+  color: rgb(95 110 99 / var(--tw-text-opacity, 1));
+}
+
+.lot-timer-box svg {
+  height: 2.5rem;
+  width: 2.5rem;
+  stroke: #5F6E63;
+}
+
+.lot-bids-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.bid-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  border-radius: 15px;
+  --tw-bg-opacity: 1;
+  background-color: rgb(245 247 245 / var(--tw-bg-opacity, 1));
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+  font-weight: 700;
+  --tw-text-opacity: 1;
+  color: rgb(95 110 99 / var(--tw-text-opacity, 1));
+}
+
+.bid-avatar {
+  height: 2.5rem;
+  width: 2.5rem;
+  overflow: hidden;
+  border-radius: 9999px;
+  --tw-bg-opacity: 1;
+  background-color: rgb(217 217 217 / var(--tw-bg-opacity, 1));
+}
+
+.bid-avatar img {
+  height: 100%;
+  width: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.bid-name {
+  flex-grow: 1;
+  text-transform: uppercase;
+}
+
+.bid-amount {
+  --tw-text-opacity: 1;
+  color: rgb(53 63 55 / var(--tw-text-opacity, 1));
+}
+
+.fixed {
+  position: fixed;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.relative {
+  position: relative;
+}
+
+.block {
+  display: block;
+}
+
+.flex {
+  display: flex;
+}
+
+.grid {
+  display: grid;
+}
+
+.hidden {
+  display: none;
+}
+
+.flex-shrink {
+  flex-shrink: 1;
+}
+
+.flex-grow {
+  flex-grow: 1;
+}
+
+.transform {
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.resize {
+  resize: both;
+}
+
+.border {
+  border-width: 1px;
+}
+
+.uppercase {
+  text-transform: uppercase;
+}
+
+.outline {
+  outline-style: solid;
+}
+
+.transition {
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, -webkit-backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter;
+  transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, opacity, box-shadow, transform, filter, backdrop-filter, -webkit-backdrop-filter;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+/* ============ КОМПОНЕНТЫ ============ */

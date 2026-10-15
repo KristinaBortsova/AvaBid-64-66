@@ -1,0 +1,565 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply font-main font-bold text-main bg-[#F5F7F5] min-h-screen relative;
+  }
+  
+  body::before {
+    content: "";
+    @apply fixed top-0 left-0 w-full h-full -z-10;
+    background-image: url('https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/editing_result_ccf73b25ac7911f18cf51ae74967528c_1.jpg');
+    background-size: cover;
+    background-position: center;
+    opacity: 0.35;
+  }
+}
+
+/* ============ КОМПОНЕНТЫ ============ */
+@layer components {
+
+  /* ---- Общий контейнер ---- */
+  .app-container {
+    @apply flex min-h-screen p-5 gap-0;
+  }
+
+  /* ---- Сайдбар ---- */
+  .sidebar {
+    @apply w-[200px] bg-card rounded-[20px] px-5 py-8 flex flex-col sticky top-5;
+    height: calc(100vh - 40px);
+  }
+
+  .sidebar-logo {
+    @apply flex items-center gap-2.5 text-2xl font-bold text-main mb-10;
+  }
+
+  .sidebar-logo img {
+    @apply w-[100px] h-auto;
+  }
+
+  .sidebar-nav {
+    @apply flex flex-col gap-[15px] grow;
+  }
+
+  .nav-item {
+    @apply flex items-center gap-3 px-5 py-[15px] no-underline text-main bg-cat-inactive rounded-xl text-lg transition-all duration-300;
+  }
+
+  .nav-item.active {
+    @apply bg-cat-active text-cat-active-text;
+  }
+
+  .nav-item:hover:not(.active) {
+    @apply bg-[#c0c0c0];
+  }
+
+  .sidebar-footer {
+    @apply flex flex-col items-center gap-2.5 text-center text-slogan text-sm leading-tight;
+  }
+
+  .sidebar-footer img {
+    @apply w-[50px];
+  }
+
+  /* ---- Основной контент ---- */
+  .main-content {
+    @apply grow flex flex-col gap-[30px] ml-[30px];
+  }
+
+  .top-header {
+    @apply bg-card rounded-[20px] px-[30px] py-5 flex justify-between items-center mb-5;
+  }
+
+  .top-header h1 {
+    @apply text-3xl text-main;
+  }
+
+  .bell-btn {
+    @apply w-[50px] h-[50px] rounded-full flex justify-center items-center cursor-pointer text-xl transition-transform duration-200;
+  }
+
+  .bell-btn:hover {
+    @apply scale-105;
+  }
+
+  .section-title {
+    @apply text-3xl text-main mb-5 text-center;
+  }
+
+  /* ---- Сетка лотов ---- */
+  .lots-grid {
+    @apply grid gap-[25px];
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
+
+  .lot-card {
+    @apply bg-card border-2 border-lot-border rounded-[15px] overflow-hidden flex flex-col transition-transform duration-300 no-underline text-inherit w-full;
+  }
+
+  .lot-card:hover {
+    @apply -translate-y-[5px] shadow-[0_10px_20px_rgba(95,110,99,0.2)];
+  }
+
+  .lot-image-wrapper {
+    @apply w-full h-[250px] overflow-hidden bg-[#f9f9f9] flex justify-center items-center;
+  }
+
+  .lot-image-wrapper img {
+    @apply w-full h-full object-cover;
+  }
+
+  .lot-info {
+    @apply p-[15px] flex flex-col gap-2.5 font-normal;
+  }
+
+  .lot-header {
+    @apply flex justify-between items-start gap-2.5;
+  }
+
+  .lot-name {
+    @apply text-base text-main break-words;
+  }
+
+  .lot-time {
+    @apply text-sm text-main text-right whitespace-nowrap;
+  }
+
+  .lot-price {
+    @apply text-[22px] font-bold text-price mt-auto;
+  }
+
+  /* ---- Страница входа ---- */
+  .login-body {
+    @apply bg-[#F5F7F5] flex justify-center items-center min-h-screen m-0;
+  }
+
+  .login-overlay {
+    @apply w-full h-full flex justify-center items-center p-5;
+  }
+
+  .login-modal {
+    @apply bg-card rounded-[25px] w-full max-w-[900px] h-[600px] flex overflow-hidden relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .login-left {
+    @apply basis-1/2 px-[50px] py-10 flex flex-col justify-center box-border;
+  }
+
+  .login-right {
+    @apply basis-1/2 rounded-r-[25px] box-border;
+    background-image: url('https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/17a53499-85ef-4ffe-a290-c75537b7e4df%201.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+  .close-btn {
+    @apply absolute top-5 right-5 w-[35px] h-[35px] border-2 border-main rounded-[5px] flex justify-center items-center text-main no-underline transition-all duration-300;
+  }
+
+  .close-btn:hover {
+    @apply bg-bell-bg;
+  }
+
+  .login-logo {
+    @apply w-[80px] h-auto mb-5;
+  }
+
+  .login-header h1 {
+    @apply text-[28px] text-main mb-[15px] uppercase;
+  }
+
+  .login-header p {
+    @apply text-[15px] text-slogan leading-relaxed mb-[30px];
+  }
+
+  .login-form {
+    @apply flex flex-col gap-5 mb-[30px];
+  }
+
+  .input-group {
+    @apply flex flex-col gap-2;
+  }
+
+  .label-row {
+    @apply flex justify-between items-center;
+  }
+
+  .input-group label {
+    @apply text-sm font-bold text-main tracking-wide;
+  }
+
+  .input-group input {
+    @apply bg-input-bg border-none rounded-[10px] p-[15px] text-base font-main text-price outline-none transition-all duration-300;
+  }
+
+  .input-group input:focus {
+    @apply ring-2 ring-main;
+  }
+
+  .forgot-link {
+    @apply text-[13px] text-slogan no-underline;
+  }
+
+  .forgot-link:hover {
+    @apply underline;
+  }
+
+  .login-btn {
+    @apply bg-main text-white border-none rounded-[30px] p-[15px] text-lg font-bold font-main cursor-pointer mt-2.5 transition-all duration-300;
+  }
+
+  .login-btn:hover {
+    @apply bg-price;
+  }
+
+  .register-link {
+    @apply text-center text-[15px] text-main;
+  }
+
+  .register-link a {
+    @apply text-main underline font-bold;
+  }
+
+  /* ---- Страница профиля ---- */
+  .profile-header-card {
+    @apply bg-card rounded-[20px] p-[30px] flex justify-between items-center mb-5;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  }
+
+  .profile-info {
+    @apply flex items-center gap-[25px];
+  }
+
+  .avatar-placeholder {
+    @apply w-[100px] h-[100px] bg-main rounded-full flex justify-center items-center;
+  }
+
+  .profile-text h2 {
+    @apply text-[32px] text-main mb-[5px];
+  }
+
+  .profile-text p {
+    @apply text-base text-slogan font-normal;
+  }
+
+  .edit-btn {
+    @apply bg-main text-white border-none rounded-xl px-[25px] py-[15px] font-main text-base font-bold flex items-center gap-2.5 cursor-pointer transition-all duration-300;
+  }
+
+  .edit-btn:hover {
+    @apply bg-price;
+  }
+
+  .profile-grid {
+    @apply grid gap-5 grow;
+    grid-template-columns: 1fr 2fr;
+  }
+
+  .profile-actions {
+    @apply bg-card rounded-[20px] p-[30px] flex flex-col gap-[15px];
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  }
+
+  .action-btn {
+    @apply bg-cat-inactive text-main border-none rounded-xl p-[18px] font-main text-lg font-bold text-left cursor-pointer transition-all duration-300;
+  }
+
+  .action-btn:hover {
+    @apply bg-[#c0c0c0];
+  }
+
+  .profile-content {
+    @apply bg-card rounded-[20px] p-[30px];
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  }
+
+  .profile-content h2 {
+    @apply text-[28px] text-main mb-[30px];
+  }
+
+  .empty-state {
+    @apply flex flex-col items-center justify-center gap-[15px] text-cat-active text-2xl;
+    height: 60%;
+  }
+
+  .empty-state img {
+    @apply w-[80px] opacity-50;
+  }
+
+  /* ---- Настройки ---- */
+  .settings-menu {
+    @apply flex flex-col items-center gap-5 bg-card rounded-[20px] p-[50px] grow;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  }
+
+  .settings-btn {
+    @apply w-4/5 max-w-[600px] bg-cat-inactive text-main border-none rounded-xl p-[18px] font-main text-xl font-bold text-center cursor-pointer transition-colors duration-300;
+  }
+
+  .settings-btn:hover {
+    @apply bg-[#c0c0c0];
+  }
+
+  .delete-btn {
+    @apply mt-[30px] font-bold uppercase;
+  }
+
+  .close-settings-btn {
+    @apply absolute top-5 right-5 w-10 h-10 border-2 border-main rounded-lg bg-transparent flex justify-center items-center text-main cursor-pointer transition-all duration-300;
+  }
+
+  .close-settings-btn:hover {
+    @apply bg-bell-bg;
+  }
+
+  /* ---- Восстановление пароля ---- */
+  .recovery-card {
+    @apply bg-card rounded-[25px] w-full max-w-[600px] px-[50px] py-10 relative flex flex-col;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  }
+
+  .recovery-header {
+    @apply flex justify-between items-center mb-10;
+  }
+
+  .header-left {
+    @apply flex items-center gap-[15px];
+  }
+
+  .recovery-logo {
+    @apply w-[60px] h-auto;
+  }
+
+  .recovery-header h2 {
+    @apply text-2xl text-main uppercase tracking-wide;
+  }
+
+  .recovery-content {
+    @apply flex flex-col items-center text-center;
+  }
+
+  .lock-icon-box {
+    @apply w-[80px] h-[80px] bg-main rounded-[15px] flex justify-center items-center mb-[25px];
+  }
+
+  .recovery-text {
+    @apply text-lg text-main mb-[25px] font-bold uppercase;
+  }
+
+  .recovery-form {
+    @apply w-full flex flex-col items-center gap-[25px];
+  }
+
+  .recovery-input {
+    @apply w-4/5 bg-cat-inactive border-none rounded-xl px-5 py-[18px] text-base font-main text-price outline-none transition-all duration-300;
+  }
+
+  .recovery-input:focus {
+    @apply ring-2 ring-main;
+  }
+
+  .recovery-btn {
+    @apply bg-main text-white border-none rounded-[30px] px-10 py-[15px] text-xl font-bold font-main cursor-pointer transition-all duration-300 uppercase;
+  }
+
+  .recovery-btn:hover {
+    @apply bg-price;
+  }
+
+  .password-inputs-wrapper {
+    @apply w-full flex flex-col gap-5 mb-[30px] text-left;
+  }
+
+  .password-inputs-wrapper .input-group {
+    @apply flex flex-col gap-2 w-full;
+  }
+
+  .password-inputs-wrapper label {
+    @apply text-lg text-main uppercase font-bold;
+  }
+
+  .password-inputs-wrapper .recovery-input {
+    @apply w-full;
+  }
+
+  .login-redirect-btn {
+    @apply inline-block text-center no-underline w-auto min-w-[200px] mx-auto;
+  }
+
+  /* ---- Категории ---- */
+  .categories-grid {
+    @apply flex justify-center items-center gap-[30px] flex-wrap p-5 grow;
+  }
+
+  .category-card {
+    @apply relative w-[350px] h-[450px] border-[5px] border-main rounded-[30px] overflow-hidden no-underline transition-all duration-300 bg-card;
+  }
+
+  .category-card:hover {
+    @apply -translate-y-[5px] shadow-[0_15px_30px_rgba(95,110,99,0.3)];
+  }
+
+  .category-card img {
+    @apply w-full h-full object-cover opacity-60 block;
+  }
+
+  .category-label {
+    @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[85%] border-4 border-main rounded-[15px] px-2.5 py-5 text-center text-[32px] font-bold text-main uppercase tracking-wider;
+    background-color: rgba(255, 255, 255, 0.85);
+  }
+
+  /* ---- Подкатегории ---- */
+  .subcategories-container {
+    @apply bg-card rounded-[20px] p-10 grow;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  }
+
+  .subcategories-grid {
+    @apply grid grid-cols-4 gap-[30px] justify-items-center;
+  }
+
+  .subcategory-card {
+    @apply flex flex-col items-center no-underline gap-[15px] transition-transform duration-300;
+  }
+
+  .subcategory-card:hover {
+    @apply -translate-y-[5px];
+  }
+
+  .subcategory-image {
+    @apply w-full aspect-square border-[5px] border-main rounded-[20px] overflow-hidden bg-[#F5F7F5];
+  }
+
+  .subcategory-image img {
+    @apply w-full h-full object-cover block;
+  }
+
+  .subcategory-name {
+    @apply text-2xl font-bold text-main uppercase text-center;
+  }
+
+  /* ---- О нас ---- */
+  .about-container {
+    @apply bg-card/80 rounded-[20px] p-10 flex gap-10 grow;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  }
+
+  .about-text {
+    @apply flex-[2] flex flex-col gap-5;
+  }
+
+  .about-text h2 {
+    @apply text-[32px] text-main uppercase mb-2.5;
+  }
+
+  .about-text p {
+    @apply text-lg text-slogan leading-relaxed font-normal;
+  }
+
+  .about-buttons {
+    @apply flex-1 flex flex-col gap-5 justify-start pt-2.5;
+  }
+
+  .about-btn {
+    @apply bg-main text-white border-none rounded-[15px] px-[25px] py-5 font-main text-xl font-bold text-left cursor-pointer transition-all duration-300 uppercase leading-tight;
+  }
+
+  .about-btn:hover {
+    @apply bg-price -translate-y-0.5;
+  }
+
+  /* ---- Страница лота ---- */
+  .lot-detail-container {
+    @apply grid gap-[30px] bg-card rounded-[20px] p-[30px] grow;
+    grid-template-columns: 1.5fr 1fr;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  }
+
+  .lot-detail-left {
+    @apply flex flex-col gap-5;
+  }
+
+  .lot-image-large {
+    @apply w-full rounded-[15px] border-[5px] border-main overflow-hidden bg-[#F5F7F5] flex justify-center items-center;
+  }
+
+  .lot-image-large img {
+    @apply w-full h-auto max-h-[500px] object-contain;
+  }
+
+  .lot-bid-info {
+    @apply text-[28px] font-bold text-main uppercase;
+  }
+
+  .lot-author {
+    @apply flex items-center gap-[15px] text-2xl font-bold text-main uppercase;
+  }
+
+  .author-avatar {
+    @apply w-[50px] h-[50px] rounded-full overflow-hidden border-[3px] border-main;
+  }
+
+  .author-avatar img {
+    @apply w-full h-full object-cover;
+  }
+
+  .lot-description {
+    @apply text-xl text-slogan font-bold uppercase mt-2.5;
+  }
+
+  .lot-description span {
+    @apply text-main;
+  }
+
+  .lot-detail-right {
+    @apply flex flex-col gap-5;
+  }
+
+  .lot-actions {
+    @apply flex flex-col gap-[15px];
+  }
+
+  .action-btn-outline {
+    @apply bg-transparent text-main border-4 border-main rounded-full p-[15px] font-main text-[22px] font-bold uppercase cursor-pointer transition-all duration-300;
+  }
+
+  .action-btn-outline:hover {
+    @apply bg-main text-white;
+  }
+
+  .lot-timer-box {
+    @apply flex items-center gap-[15px] bg-card border-[3px] border-cat-inactive rounded-[20px] p-5 text-main text-[42px] font-bold tracking-wider;
+  }
+
+  .lot-timer-box svg {
+    @apply w-10 h-10 stroke-main;
+  }
+
+  .lot-bids-list {
+    @apply flex flex-col gap-[15px];
+  }
+
+  .bid-item {
+    @apply flex items-center gap-[15px] bg-[#F5F7F5] rounded-[15px] px-5 py-3 text-xl font-bold text-main;
+  }
+
+  .bid-avatar {
+    @apply w-10 h-10 rounded-full overflow-hidden bg-cat-inactive;
+  }
+
+  .bid-avatar img {
+    @apply w-full h-full object-cover;
+  }
+
+  .bid-name {
+    @apply grow uppercase;
+  }
+
+  .bid-amount {
+    @apply text-price;
+  }
+}
