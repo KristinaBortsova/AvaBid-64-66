@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /pages/profile.html
+Disallow: /pages/login.html
+Disallow: /pages/register.html
+Disallow: /pages/recovery.html
+Disallow: /pages/create-lot.html
+Disallow: /api/
+
+Sitemap: https://example.com/sitemap.xml

@@ -1,4 +1,3 @@
-// AvaBid — Авторизация (в IIFE — не конфликтует с frontend.js)
 (function () {
   const API_URL_AUTH = 'http://localhost:3000/api';
   const SESSION_TTL_MS = 60 * 60 * 1000; // 60 минут
