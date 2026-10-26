@@ -32,7 +32,7 @@ router.get('/', async (req, res) => {
       image: lot.images[0]?.imageUrl || null,
       category: lot.category.name,
       author: lot.user.name,
-      endTime: lot.endTime,   // ← берём из самого лота, а не из ставки
+      endTime: lot.endTime, 
     }));
 
     res.json(formatted);
@@ -76,7 +76,7 @@ router.get('/:id', async (req, res) => {
       category: lot.category.name,
       author: lot.user.name,
       status: lot.status.name,
-      endTime: lot.endTime,   // ← берём из самого лота
+      endTime: lot.endTime,  
       bids: lot.bids.map((b) => ({
         id: b.id,
         price: b.currentPrice,
@@ -90,7 +90,7 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// POST /api/lots — создать лот (только для художников)
+// POST /api/lots — создать лот
 router.post('/', authenticateToken, async (req, res) => {
   try {
     const { name, description, startPrice, stepMin, categoryId, imageUrl, durationHours } = req.body;
