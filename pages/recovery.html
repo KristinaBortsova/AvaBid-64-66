@@ -16,7 +16,7 @@
         <div class="recovery-card">
             <div class="recovery-header">
                 <div class="header-left">
-                    <img src="https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/1.jpg" alt="AvaBid Logo" class="recovery-logo">
+                    <img src="https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/1.png" alt="AvaBid Logo" class="recovery-logo">
                     <h2>Восстановление пароля</h2>
                 </div>
                 <a href="login.html" class="close-btn">
@@ -44,38 +44,91 @@
                 </div>
 
                 <div id="recovery-step-2" style="display: none; width: 100%;">
-                    <div class="password-inputs-wrapper">
-                        <div class="input-group">
-                            <label for="new-password">Введите новый пароль</label>
-                            <input type="password" id="new-password" class="recovery-input" placeholder="">
-                        </div>
-                        <div class="input-group">
-                            <label for="confirm-password">Подтвердите пароль</label>
-                            <input type="password" id="confirm-password" class="recovery-input" placeholder="">
-                        </div>
-                    </div>
-                    <a href="profile.html" class="recovery-btn login-redirect-btn">Войти</a>
+                   <div class="password-inputs-wrapper">
+                      <div class="input-group">
+                          <label>Код из письма</label>
+                          <input type="text" id="reset-code" class="recovery-input" placeholder="XXXX">
+                     </div>
+                     <div class="input-group">
+                           <label>Новый пароль</label>
+                           <input type="password" id="new-password" class="recovery-input">
+                     </div>
+                      <div class="input-group">
+                          <label>Подтвердите пароль</label>
+                          <input type="password" id="confirm-password" class="recovery-input">
+                     </div>
+                 </div>
+                  <button id="reset-password-btn" class="recovery-btn" style="width: 100%;">Сменить пароль</button>
+                      <p id="recovery-error" style="color: #c0392b; margin-top: 10px; display: none;"></p>
                 </div>
             </div>
         </div>
     </div>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const sendCodeForm = document.getElementById('send-code-form');
-            const step1 = document.getElementById('recovery-step-1');
-            const step2 = document.getElementById('recovery-step-2');
+   <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const sendCodeForm = document.getElementById('send-code-form');
+        const step1 = document.getElementById('recovery-step-1');
+        const step2 = document.getElementById('recovery-step-2');
+        const resetBtn = document.getElementById('reset-password-btn');
+        const errorEl = document.getElementById('recovery-error');
+        let userEmail = '';
 
-            if (sendCodeForm) {
-                sendCodeForm.addEventListener('submit', (e) => {
-                    e.preventDefault();
+        sendCodeForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            userEmail = document.querySelector('input[type="email"]').value;
+            
+            try {
+                const res = await fetch('/api/auth/request-code', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: userEmail })
+                });
+                const data = await res.json();
+                
+                if (res.ok) {
                     step1.style.display = 'none';
                     step2.style.display = 'flex';
                     step2.style.flexDirection = 'column';
                     step2.style.alignItems = 'center';
-                });
-            }
+                    alert(`Код отправлен! Для теста ваш код: ${data.debugCode}`);
+                } else {
+                    alert(data.error);
+                }
+            } catch (e) { alert('Ошибка сервера'); }
         });
-    </script>
+
+        resetBtn.addEventListener('click', async () => {
+            const code = document.getElementById('reset-code').value;
+            const newPassword = document.getElementById('new-password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            errorEl.style.display = 'none';
+
+            if (newPassword !== confirmPassword) {
+                errorEl.textContent = 'Пароли не совпадают';
+                errorEl.style.display = 'block';
+                return;
+            }
+
+            try {
+                const res = await fetch('/api/auth/reset-password', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: userEmail, code, newPassword })
+                });
+                const data = await res.json();
+                
+                if (res.ok) {
+                    alert('Пароль успешно изменен! Теперь войдите.');
+                    window.location.href = 'login.html';
+                } else {
+                    errorEl.textContent = data.error;
+                    errorEl.style.display = 'block';
+                }
+            } catch (e) { alert('Ошибка сервера'); }
+        });
+    });
+</script>
+<script src="../theme.js"></script>
 </body>
 </html>

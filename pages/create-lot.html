@@ -15,7 +15,7 @@
     <div class="app-container">
         <aside class="sidebar">
             <div class="sidebar-logo">
-                <img src="https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/1.jpg" alt="AvaBid Logo">
+                <img src="https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/1.png" alt="AvaBid Logo">
             </div>
 
             <nav class="sidebar-nav">
@@ -78,10 +78,19 @@
                         <textarea id="lot-description" rows="4" required style="width: 100%; background: #E8EFE5; border: none; border-radius: 10px; padding: 15px; font-size: 16px; font-family: 'Alegreya Sans SC', sans-serif; color: #353F37; outline: none; box-sizing: border-box; resize: vertical;"></textarea>
                     </div>
 
+                    <!-- ГЛАВНАЯ КАТЕГОРИЯ -->
                     <div class="input-group">
                         <label for="lot-category" style="color: #5F6E63; font-size: 14px; font-weight: 700; text-transform: uppercase; margin-bottom: 8px; display: block;">Категория</label>
                         <select id="lot-category" required style="width: 100%; background: #E8EFE5; border: none; border-radius: 10px; padding: 15px; font-size: 16px; font-family: 'Alegreya Sans SC', sans-serif; color: #353F37; outline: none; box-sizing: border-box;">
                             <option value="">Выберите категорию..</option>
+                        </select>
+                    </div>
+
+                    <!-- ПОДКАТЕГОРИЯ (скрыта по умолчанию) -->
+                    <div class="input-group" id="subcategory-group" style="display: none;">
+                        <label for="lot-subcategory" style="color: #5F6E63; font-size: 14px; font-weight: 700; text-transform: uppercase; margin-bottom: 8px; display: block;">Подкатегория</label>
+                        <select id="lot-subcategory" style="width: 100%; background: #E8EFE5; border: none; border-radius: 10px; padding: 15px; font-size: 16px; font-family: 'Alegreya Sans SC', sans-serif; color: #353F37; outline: none; box-sizing: border-box;">
+                            <option value="">Выберите подкатегорию...</option>
                         </select>
                     </div>
 
@@ -95,6 +104,7 @@
                             <input type="number" id="lot-step-min" min="1" step="1" required style="width: 100%; background: #E8EFE5; border: none; border-radius: 10px; padding: 15px; font-size: 16px; font-family: 'Alegreya Sans SC', sans-serif; color: #353F37; outline: none; box-sizing: border-box;">
                         </div>
                     </div>
+                    
                     <div class="input-group">
                        <label for="lot-duration" style="color: #5F6E63; font-size: 14px; font-weight: 700; text-transform: uppercase; margin-bottom: 8px; display: block;">Длительность аукциона</label>
                        <select id="lot-duration" required style="width: 100%; background: #E8EFE5; border: none; border-radius: 10px; padding: 15px; font-size: 16px; font-family: 'Alegreya Sans SC', sans-serif; color: #353F37; outline: none; box-sizing: border-box; cursor: pointer;">
@@ -106,6 +116,7 @@
                             <option value="168">7 дней</option>
                        </select>
                     </div>
+                    
                     <div class="input-group">
                         <label for="lot-image" style="color: #5F6E63; font-size: 14px; font-weight: 700; text-transform: uppercase; margin-bottom: 8px; display: block;">URL изображения (необязательно)</label>
                         <input type="url" id="lot-image" placeholder="https://..." style="width: 100%; background: #E8EFE5; border: none; border-radius: 10px; padding: 15px; font-size: 16px; font-family: 'Alegreya Sans SC', sans-serif; color: #353F37; outline: none; box-sizing: border-box;">
@@ -128,12 +139,20 @@
                 return;
             }
 
-            // Загружаем категории
             const catSelect = document.getElementById('lot-category');
+            const subCatSelect = document.getElementById('lot-subcategory');
+            const subCatGroup = document.getElementById('subcategory-group');
+            let allCategories = [];
+
+            // 1. Загружаем категории
             try {
-                const res = await fetch('http://localhost:3000/api/categories');
-                const categories = await res.json();
-                categories.forEach(cat => {
+                const res = await fetch('/api/categories');
+                allCategories = await res.json();
+                
+                // Берем только РОДИТЕЛЬСКИЕ категории (у которых нет parentId)
+                const mainCategories = allCategories.filter(c => !c.parentId);
+                
+                mainCategories.forEach(cat => {
                     const opt = document.createElement('option');
                     opt.value = cat.id;
                     opt.textContent = cat.name;
@@ -143,7 +162,29 @@
                 console.error('Не удалось загрузить категории', e);
             }
 
-            // Обработка формы
+            // 2. Логика появления подкатегорий
+            catSelect.addEventListener('change', () => {
+                const selectedId = parseInt(catSelect.value);
+                const subCategories = allCategories.filter(c => c.parentId === selectedId);
+
+                if (subCategories.length > 0) {
+                    subCatGroup.style.display = 'block';
+                    subCatSelect.innerHTML = '<option value="">Выберите подкатегорию...</option>';
+                    subCategories.forEach(sub => {
+                        const opt = document.createElement('option');
+                        opt.value = sub.id;
+                        opt.textContent = sub.name;
+                        subCatSelect.appendChild(opt);
+                    });
+                    subCatSelect.required = true; // Делаем обязательной, если появилась
+                } else {
+                    subCatGroup.style.display = 'none';
+                    subCatSelect.innerHTML = '';
+                    subCatSelect.required = false;
+                }
+            });
+
+            // 3. Обработка формы
             const form = document.getElementById('create-lot-form');
             const errorEl = document.getElementById('create-lot-error');
             const successEl = document.getElementById('create-lot-success');
@@ -156,19 +197,25 @@
                 submitBtn.disabled = true;
                 submitBtn.textContent = 'Публикация...';
 
+                // Определяем, какой ID отправлять: подкатегории (если выбрана) или родительской категории
+                let finalCategoryId = parseInt(catSelect.value);
+                if (subCatGroup.style.display !== 'none' && subCatSelect.value) {
+                    finalCategoryId = parseInt(subCatSelect.value);
+                }
+
                 const payload = {
                    name: document.getElementById('lot-name').value.trim(),
-                 description: document.getElementById('lot-description').value.trim(),
-                 startPrice: parseFloat(document.getElementById('lot-start-price').value),
-                 stepMin: parseFloat(document.getElementById('lot-step-min').value),
-                 categoryId: parseInt(catSelect.value),
-                 imageUrl: document.getElementById('lot-image').value.trim() || null,
-                 durationHours: parseInt(document.getElementById('lot-duration').value),
+                   description: document.getElementById('lot-description').value.trim(),
+                   startPrice: parseFloat(document.getElementById('lot-start-price').value),
+                   stepMin: parseFloat(document.getElementById('lot-step-min').value),
+                   categoryId: finalCategoryId, // Отправляем ID подкатегории
+                   imageUrl: document.getElementById('lot-image').value.trim() || null,
+                   durationHours: parseInt(document.getElementById('lot-duration').value),
                 };
 
                 try {
                     const token = getToken();
-                    const response = await fetch('http://localhost:3000/api/lots', {
+                    const response = await fetch('/api/lots', {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -199,5 +246,7 @@
             });
         });
     </script>
+    <script src="../notifications.js"></script>
+    <script src="../theme.js"></script>
 </body>
 </html>

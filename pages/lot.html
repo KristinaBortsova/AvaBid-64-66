@@ -15,7 +15,7 @@
     <div class="app-container">
         <aside class="sidebar">
             <div class="sidebar-logo">
-                <img src="https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/1.jpg" alt="AvaBid Logo">
+                <img src="https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/1.png" alt="AvaBid Logo">
             </div>
 
             <nav class="sidebar-nav">
@@ -67,7 +67,7 @@
             <div class="lot-detail-container">
                 <div class="lot-detail-left">
                     <div class="lot-image-large">
-                        <img id="lot-image" src="https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/1.jpg" alt="Лот">
+                        <img id="lot-image" src="https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/1.png" alt="Лот">
                     </div>
 
                     <div class="lot-bid-info">
@@ -77,9 +77,9 @@
                     <div class="lot-author">
                         <span>АВТОР:</span>
                         <div class="author-avatar">
-                            <img src="https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/1.jpg" alt="Author">
+                            <img src="https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/1.png" alt="Author">
                         </div>
-                        <span>—</span>
+                       <a id="author-link" href="#" style="color: inherit; text-decoration: underline;">Загрузка...</a>
                     </div>
 
                     <div class="lot-description">
@@ -90,7 +90,7 @@
                 <div class="lot-detail-right">
                     <div class="lot-actions">
                      <button class="action-btn-outline" id="make-bid-btn">СДЕЛАТЬ СТАВКУ</button>
-                     <button class="action-btn-outline">КУПИТЬ СЕЙЧАС</button>
+                     <button class="action-btn-outline" id="buy-now-btn">КУПИТЬ СЕЙЧАС</button>
                     </div>
 
                     <div class="lot-timer-box">
@@ -157,7 +157,7 @@
         // Загружаем данные лота, чтобы знать minBid
         async function loadLotForBid() {
             try {
-                const res = await fetch(`http://localhost:3000/api/lots/${lotId}`);
+                const res = await fetch(`/api/lots/${lotId}`);
                 lotData = await res.json();
             } catch (e) {
                 console.error('Не удалось получить данные лота', e);
@@ -208,7 +208,7 @@
 
             try {
                 const token = getToken();
-                const response = await fetch(`http://localhost:3000/api/lots/${lotId}/bids`, {
+                const response = await fetch(`/api/lots/${lotId}/bids`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -234,5 +234,7 @@
         });
     });
 </script>
+<script src="../notifications.js"></script>
+<script src="../theme.js"></script>
 </body>
 </html>

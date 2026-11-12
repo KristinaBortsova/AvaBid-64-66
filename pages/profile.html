@@ -15,7 +15,7 @@
     <div class="app-container">
         <aside class="sidebar">
             <div class="sidebar-logo">
-                <img src="https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/1.jpg" alt="AvaBid Logo">
+                <img src="https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/1.png" alt="AvaBid Logo">
             </div>
 
             <nav class="sidebar-nav">
@@ -44,6 +44,13 @@
                       <path d="M19.1667 16.261C20.125 14.3635 21.0833 13.4166 23 13.4166C25.3882 13.4166 26.8333 15.3122 26.8333 17.2078C26.8333 19.1034 25.875 20.0502 23 21.9477V24.9166M23 31.625V32.5833" stroke="currentColor" stroke-width="4" stroke-linecap="round"/>
                     </svg> О нас
                 </a>
+                
+                <!-- ССЫЛКА НА АДМИНКУ (скрыта) -->
+                <a href="admin-panel.html" class="nav-item" id="admin-panel-link" style="display: none; background-color: #c0392b; color: white; margin-top: 20px;">
+                    <svg width="35" height="35" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                    </svg> Админ-панель
+                </a>
             </nav>
 
             <div class="sidebar-footer">
@@ -55,7 +62,7 @@
         <main class="main-content">
             <header class="top-header">
                 <h1 id="page-title">Профиль</h1>
-                <button class="bell-btn">
+                <button class="bell-btn" id="notification-bell">
                     <svg width="76" height="71" viewBox="0 0 76 71" fill="none" xmlns="http://www.w3.org/2000/svg">
                      <path d="M38 3C57.5255 3 73 17.7398 73 35.5C73 53.2602 57.5255 68 38 68C18.4745 68 3 53.2602 3 35.5C3 17.7398 18.4745 3 38 3Z" fill="#E8EFE5" stroke="#839A88" stroke-width="6"/>
                      <path d="M44.5392 50.7578C44.5392 52.4921 43.8502 54.1554 42.6239 55.3817C41.3976 56.608 39.7344 57.2969 38.0001 57.2969C36.2658 57.2969 34.6026 56.608 33.3763 55.3817C32.1499 54.1554 31.461 52.4921 31.461 50.7578M39.5716 20.2487L36.3762 20.2421C29.0873 20.2247 22.7597 26.1469 22.7095 33.3203V41.5813C22.7095 43.3033 22.4916 44.9838 21.5521 46.4159L20.9265 47.3706C19.974 48.8179 20.9985 50.7578 22.7095 50.7578H53.2906C55.0017 50.7578 56.024 48.8179 55.0736 47.3706L54.448 46.4159C53.5108 44.9838 53.2906 43.3011 53.2906 41.5792V33.3225C53.2034 26.1469 46.8605 20.2661 39.5716 20.2487Z" stroke="#839A88" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -64,21 +71,19 @@
                 </button>
             </header>
 
+            <!-- ОСНОВНОЙ ПРОФИЛЬ -->
             <div id="main-profile-view">
                 <div class="profile-header-card">
                     <div class="profile-info">
-                        <div class="avatar-placeholder">
-                            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                <circle cx="12" cy="7" r="4"></circle>
-                            </svg>
+                        <div class="avatar-placeholder" style="overflow: hidden; background-color: transparent; border: 2px solid #5F6E63;">
+                            <img id="profile-avatar" src="https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/2.png" style="width: 100%; height: 100%; object-fit: cover;" alt="Avatar">
                         </div>
                         <div class="profile-text">
                             <h2 id="profile-name">Загрузка...</h2>
                             <p id="profile-email">...</p>
                         </div>
                     </div>
-                    <button class="edit-btn">
+                    <button class="edit-btn" id="open-edit-profile-btn">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
                             <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
@@ -92,7 +97,7 @@
                         <a href="create-lot.html" class="action-btn" style="display: block; text-align: left; text-decoration: none; box-sizing: border-box;">Создать лот</a>
                         <button class="action-btn">Пополнить баланс</button>
                         <button class="action-btn" id="logout-btn">Выйти из аккаунта</button>
-                        <button class="action-btn">Уведомления</button>
+                        <button class="action-btn" id="open-notifications-btn">Уведомления</button>
                         <button class="action-btn">Платежные данные</button>
                         <button class="action-btn" id="settings-btn">Настройки</button>
                     </div>
@@ -108,14 +113,12 @@
                 </div>
             </div>
 
+            <!-- НАСТРОЙКИ -->
             <div id="settings-view" style="display: none;">
                 <div class="profile-header-card" style="position: relative;">
                     <div class="profile-info">
-                        <div class="avatar-placeholder">
-                            <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                                <circle cx="12" cy="7" r="4"></circle>
-                            </svg>
+                        <div class="avatar-placeholder" style="overflow: hidden; background-color: transparent; border: 2px solid #5F6E63;">
+                            <img id="settings-avatar" src="https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/2.png" style="width: 100%; height: 100%; object-fit: cover;" alt="Avatar">
                         </div>
                         <div class="profile-text">
                             <h2 id="settings-name">Загрузка...</h2>
@@ -131,16 +134,185 @@
                 </div>
 
                 <div class="settings-menu">
-                    <button class="settings-btn">Поддержка</button>
-                    <button class="settings-btn">Сменить аккаунт</button>
-                    <button class="settings-btn">Получать СМС-рассылки</button>
-                    <button class="settings-btn">Интерфейс приложения</button>
-                    <button class="settings-btn delete-btn">Удалить аккаунт</button>
+                    <button class="settings-btn" id="open-support-btn">Поддержка</button>
+                    <button class="settings-btn" id="switch-account-btn">Сменить аккаунт</button>
+                    <button class="settings-btn" id="toggle-broadcast-btn">Получать СМС-рассылки: <strong id="broadcast-status">ВЫКЛ</strong></button>
+                    <button class="settings-btn" id="open-theme-modal">Интерфейс приложения</button>
+                    <button class="settings-btn delete-btn" id="delete-account-btn">Удалить аккаунт</button>
+                </div>
+            </div>
+
+            <!-- страница уведов -->
+            <div id="notifications-view" style="display: none;">
+                <div class="profile-content" style="background: #fff; padding: 30px; border-radius: 20px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 2px solid #E8EFE5; padding-bottom: 15px;">
+                        <h2 style="color: #5F6E63; font-size: 28px; margin: 0;">Все уведомления</h2>
+                        <button id="close-notifications-btn" class="action-btn" style="padding: 10px 20px; background: #D9D9D9; border-radius: 10px; border: none; cursor: pointer; font-weight: bold; color: #5F6E63;">Назад в профиль</button>
+                    </div>
+                    <div id="full-notifications-list" style="display: flex; flex-direction: column; gap: 15px;">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- окошко редактирования лота -->
+            <div id="edit-lot-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
+                <div style="background: #fff; border-radius: 20px; padding: 40px; max-width: 500px; width: 90%; position: relative;">
+                  <button id="close-edit-modal" style="position: absolute; top: 15px; right: 15px; width: 35px; height: 35px; border: 2px solid #5F6E63; border-radius: 8px; background: transparent; cursor: pointer; display: flex; justify-content: center; align-items: center; color: #5F6E63;">
+                      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                  </button>
+                   <h2 style="color: #5F6E63; font-size: 24px; margin-bottom: 20px;">Редактировать лот</h2>
+                   <input type="hidden" id="edit-lot-id">
+                   <div class="input-group" style="margin-bottom: 15px;">
+                     <label style="color: #5F6E63; font-weight: 700; font-size: 14px; display: block; margin-bottom: 5px;">Название</label>
+                     <input type="text" id="edit-lot-name" style="width: 100%; background: #E8EFE5; border: none; border-radius: 10px; padding: 15px; font-size: 16px; outline: none;">
+                    </div>
+                   <div class="input-group" style="margin-bottom: 15px;">
+                      <label style="color: #5F6E63; font-weight: 700; font-size: 14px; display: block; margin-bottom: 5px;">Описание</label>
+                      <textarea id="edit-lot-desc" rows="3" style="width: 100%; background: #E8EFE5; border: none; border-radius: 10px; padding: 15px; font-size: 16px; outline: none; resize: vertical;"></textarea>
+                    </div>
+                    <div class="input-group" style="margin-bottom: 20px;">
+                      <label style="color: #5F6E63; font-weight: 700; font-size: 14px; display: block; margin-bottom: 5px;">Категория</label>
+                      <select id="edit-lot-category" style="width: 100%; background: #E8EFE5; border: none; border-radius: 10px; padding: 15px; font-size: 16px; outline: none;"></select>
+                   </div>
+                   <button id="save-edit-btn" class="recovery-btn" style="width: 100%;">Сохранить</button>
+                </div>
+            </div>
+
+            <!-- окошко редактирования профиля -->
+            <div id="edit-profile-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
+                <div style="background: #fff; border-radius: 20px; padding: 40px; max-width: 500px; width: 90%; position: relative;">
+                    <button id="close-profile-modal" style="position: absolute; top: 15px; right: 15px; width: 35px; height: 35px; border: 2px solid #5F6E63; border-radius: 8px; background: transparent; cursor: pointer; color: #5F6E63;">✕</button>
+                    <h2 style="color: #5F6E63; font-size: 24px; margin-bottom: 20px;">Редактировать профиль</h2>
+                    
+                    <div class="input-group" style="margin-bottom: 15px;">
+                        <label style="color: #5F6E63; font-weight: 700; font-size: 14px; display: block; margin-bottom: 5px;">Никнейм</label>
+                        <input type="text" id="edit-profile-name" style="width: 100%; background: #E8EFE5; border: none; border-radius: 10px; padding: 15px; outline: none;">
+                    </div>
+                    
+                    <div class="input-group" style="margin-bottom: 15px;">
+                        <label style="color: #5F6E63; font-weight: 700; font-size: 14px; display: block; margin-bottom: 5px;">Ссылка на аватар (URL)</label>
+                        <input type="url" id="edit-profile-avatar" placeholder="https://..." style="width: 100%; background: #E8EFE5; border: none; border-radius: 10px; padding: 15px; outline: none;">
+                    </div>
+
+                    <button id="save-profile-btn" class="recovery-btn" style="width: 100%; margin-bottom: 15px;">Сохранить</button>
+
+                    <hr style="border-top: 1px solid #ccc; margin: 20px 0;">
+
+                    <h3 style="color: #5F6E63; font-size: 18px; margin-bottom: 15px;">Сменить почту</h3>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="email" id="new-email-input" placeholder="Новая почта" style="flex-grow: 1; background: #E8EFE5; border: none; border-radius: 10px; padding: 15px; outline: none;">
+                        <button id="send-email-code-btn" style="background: #5F6E63; color: white; border: none; border-radius: 10px; padding: 0 20px; cursor: pointer;">Код</button>
+                    </div>
+                    <div id="email-code-wrapper" style="display: none; margin-top: 10px; gap: 10px;">
+                        <input type="text" id="email-code-input" placeholder="Код из письма" style="flex-grow: 1; background: #E8EFE5; border: none; border-radius: 10px; padding: 15px; outline: none;">
+                        <button id="confirm-email-btn" style="background: #5F6E63; color: white; border: none; border-radius: 10px; padding: 0 20px; cursor: pointer;">ОК</button>
+                    </div>
+                    <p id="edit-profile-error" style="color: #c0392b; font-size: 14px; margin-top: 10px; display: none;"></p>
+                    <p id="edit-profile-success" style="color: #5F6E63; font-size: 14px; margin-top: 10px; display: none;"></p>
+                </div>
+            </div>
+            <!-- окошко моральной поддержки -->
+            <div id="support-modal-profile" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
+                <div style="background: #fff; border-radius: 20px; padding: 40px; max-width: 500px; width: 90%; position: relative;">
+                    <button id="close-support-modal-profile" style="position: absolute; top: 15px; right: 15px; width: 35px; height: 35px; border: 2px solid #5F6E63; border-radius: 8px; background: transparent; cursor: pointer; color: #5F6E63; display: flex; justify-content: center; align-items: center;">✕</button>
+                    <h2 style="color: #5F6E63; font-size: 24px; margin-bottom: 20px; text-transform: uppercase;">Поддержка</h2>
+                    
+                    <p style="color: #7A8F80; font-size: 14px; margin-bottom: 20px;">Очень жаль, что у вас возникли проблемы! Пожалуйста, опишите вашу проблему, и мы постараемся помочь вам в ближайшее время.</p>
+
+                    <div class="input-group" style="margin-bottom: 15px;">
+                        <label style="color: #5F6E63; font-weight: 700; font-size: 14px; display: block; margin-bottom: 5px;">Ваша почта для связи</label>
+                        <input type="email" id="support-email-profile" placeholder="example@mail.ru" style="width: 100%; background: #E8EFE5; border: none; border-radius: 10px; padding: 15px; font-family: 'Alegreya Sans SC'; font-size: 16px; outline: none; box-sizing: border-box;">
+                    </div>
+                    
+                    <div class="input-group" style="margin-bottom: 25px;">
+                        <label style="color: #5F6E63; font-weight: 700; font-size: 14px; display: block; margin-bottom: 5px;">Описание проблемы</label>
+                        <textarea id="support-content-profile" rows="4" placeholder="Что случилось?" style="width: 100%; background: #E8EFE5; border: none; border-radius: 10px; padding: 15px; font-family: 'Alegreya Sans SC'; font-size: 16px; outline: none; resize: vertical; box-sizing: border-box;"></textarea>
+                    </div>
+
+                    <button id="send-support-btn-profile" class="recovery-btn" style="width: 100%;">Отправить</button>
+                    <p id="support-status-profile" style="text-align: center; margin-top: 15px; font-size: 14px; display: none; font-weight: 700;"></p>
+                </div>
+            </div>
+                        <!-- окошко смены фронта (акка) -->
+            <div id="switch-account-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
+                <div style="background: #fff; border-radius: 20px; padding: 40px; max-width: 400px; width: 90%; position: relative;">
+                    <button id="close-switch-modal" style="position: absolute; top: 15px; right: 15px; width: 35px; height: 35px; border: 2px solid #5F6E63; border-radius: 8px; background: transparent; cursor: pointer; color: #5F6E63; display: flex; justify-content: center; align-items: center;">✕</button>
+                    <h2 style="color: #5F6E63; font-size: 24px; margin-bottom: 20px; text-transform: uppercase;">Смена аккаунта</h2>
+                    
+                    <p style="color: #7A8F80; font-size: 14px; margin-bottom: 20px;">Введите данные другого аккаунта, чтобы войти в него.</p>
+
+                    <div class="input-group" style="margin-bottom: 15px;">
+                        <label style="color: #5F6E63; font-weight: 700; font-size: 14px; display: block; margin-bottom: 5px;">Email</label>
+                        <input type="email" id="switch-email" placeholder="example@mail.ru" style="width: 100%; background: #E8EFE5; border: none; border-radius: 10px; padding: 15px; font-family: 'Alegreya Sans SC'; font-size: 16px; outline: none; box-sizing: border-box;">
+                    </div>
+                    
+                    <div class="input-group" style="margin-bottom: 25px;">
+                        <label style="color: #5F6E63; font-weight: 700; font-size: 14px; display: block; margin-bottom: 5px;">Пароль</label>
+                        <input type="password" id="switch-password" placeholder="••••••" style="width: 100%; background: #E8EFE5; border: none; border-radius: 10px; padding: 15px; font-family: 'Alegreya Sans SC'; font-size: 16px; outline: none; box-sizing: border-box;">
+                    </div>
+
+                    <button id="do-switch-btn" class="recovery-btn" style="width: 100%;">Войти</button>
+                    <p id="switch-status" style="text-align: center; margin-top: 15px; font-size: 14px; display: none; font-weight: 700;"></p>
+                </div>
+            </div>
+                        <!-- окошко темкии -->
+            <div id="theme-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
+                <div style="background: #fff; border-radius: 20px; padding: 40px; max-width: 400px; width: 90%; position: relative; text-align: center;">
+                    <button id="close-theme-modal" style="position: absolute; top: 15px; right: 15px; width: 35px; height: 35px; border: 2px solid #5F6E63; border-radius: 8px; background: transparent; cursor: pointer; color: #5F6E63; display: flex; justify-content: center; align-items: center;">✕</button>
+                    <h2 style="color: #5F6E63; font-size: 24px; margin-bottom: 20px;">Интерфейс приложения</h2>
+                    <p style="color: #7A8F80; font-size: 14px; margin-bottom: 20px;">Выберите тему оформления сайта</p>
+
+                    <div style="display: flex; gap: 20px; justify-content: center;">
+                        <!-- Кнопка светлой темы -->
+                        <button id="theme-light-btn" style="flex: 1; padding: 20px; border-radius: 15px; border: 2px solid #ccc; background: #fff; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                            <div style="width: 50px; height: 50px; border-radius: 50%; background: #F5F7F5; border: 1px solid #ccc;"></div>
+                            <span style="color: #333; font-weight: bold;">Светлая</span>
+                        </button>
+                        
+                        <!-- Кнопка темной темы -->
+                        <button id="theme-dark-btn" style="flex: 1; padding: 20px; border-radius: 15px; border: 2px solid #333; background: #1a1a1a; cursor: pointer; display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                            <div style="width: 50px; height: 50px; border-radius: 50%; background: #333; border: 1px solid #555;"></div>
+                            <span style="color: #fff; font-weight: bold;">Темная</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+                        <!-- окошко сноса аккаунта блин -->
+            <div id="delete-account-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
+                <div style="background: #fff; border-radius: 20px; padding: 40px; max-width: 450px; width: 90%; position: relative; text-align: center;">
+                    <button id="close-delete-modal" style="position: absolute; top: 15px; right: 15px; width: 35px; height: 35px; border: 2px solid #5F6E63; border-radius: 8px; background: transparent; cursor: pointer; color: #5F6E63; display: flex; justify-content: center; align-items: center;">✕</button>
+                    
+                    <!-- Шаг 1: Ввод пароля -->
+                    <div id="delete-step-1">
+                        <h2 style="color: #c0392b; font-size: 24px; margin-bottom: 15px;">Удаление аккаунта</h2>
+                        <p style="color: #7A8F80; font-size: 14px; margin-bottom: 20px;">Это действие нельзя отменить. Все ваши лоты, ставки и данные будут безвозвратно удалены.</p>
+                        
+                        <div class="input-group" style="margin-bottom: 20px; text-align: left;">
+                            <label style="color: #5F6E63; font-weight: 700; font-size: 14px; display: block; margin-bottom: 5px;">Введите ваш пароль для подтверждения</label>
+                            <input type="password" id="delete-password" placeholder="••••••" style="width: 100%; background: #E8EFE5; border: none; border-radius: 10px; padding: 15px; font-family: 'Alegreya Sans SC'; font-size: 16px; outline: none; box-sizing: border-box;">
+                        </div>
+                        
+                        <button id="delete-next-btn" class="recovery-btn" style="width: 100%; background-color: #5F6E63;">Продолжить</button>
+                        <p id="delete-error-1" style="color: #c0392b; font-size: 14px; margin-top: 10px; display: none;"></p>
+                    </div>
+
+                    <!-- Шаг 2: Подтверждение -->
+                    <div id="delete-step-2" style="display: none;">
+                        <h2 style="color: #c0392b; font-size: 24px; margin-bottom: 15px;">Вы абсолютно уверены?</h2>
+                        <p style="color: #353F37; font-size: 16px; margin-bottom: 30px;">Ваш аккаунт и все связанные с ним данные будут стерты навсегда. Восстановить их будет невозможно.</p>
+                        
+                        <div style="display: flex; gap: 15px;">
+                            <button id="delete-cancel-btn" class="action-btn" style="flex: 1; text-align: center;">Отмена</button>
+                            <button id="delete-confirm-btn" class="recovery-btn" style="flex: 1; background-color: #c0392b;">Удалить</button>
+                        </div>
+                        <p id="delete-error-2" style="color: #c0392b; font-size: 14px; margin-top: 10px; display: none;"></p>
+                    </div>
                 </div>
             </div>
         </main>
     </div>
 
+    <script src="../notifications.js"></script>
     <script src="../auth.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
@@ -149,33 +321,76 @@
                 return;
             }
 
+            // Загружаем категории для селекта в модалке лотов
+            const editCategorySelect = document.getElementById('edit-lot-category');
             try {
-                const user = await fetchCurrentUser();
-                console.log('Данные пользователя:', user); // ← для отладки
+                const catRes = await fetch('/api/categories');
+                const cats = await catRes.json();
+                cats.forEach(c => {
+                    const opt = document.createElement('option');
+                    opt.value = c.name;
+                    opt.textContent = c.name;
+                    editCategorySelect.appendChild(opt);
+                });
+            } catch (e) { console.error("Не удалось загрузить категории", e); }
 
-                document.getElementById('profile-name').textContent = user.name;
-                document.getElementById('profile-email').textContent = user.email.toUpperCase();
-                document.getElementById('settings-name').textContent = user.name;
-                document.getElementById('settings-email').textContent = user.email.toUpperCase();
+            let currentUser = null;
 
-                // Счётчик и список лотов
-                document.getElementById('lots-count').textContent = user.lotsCount || 0;
+            try {
+                currentUser = await fetchCurrentUser();
+                
+                document.getElementById('profile-name').textContent = currentUser.name;
+                document.getElementById('profile-email').textContent = currentUser.email.toUpperCase();
+                document.getElementById('profile-avatar').src = currentUser.avatarUrl || 'https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/2.png';
+                
+                document.getElementById('settings-name').textContent = currentUser.name;
+                document.getElementById('settings-email').textContent = currentUser.email.toUpperCase();
+                document.getElementById('settings-avatar').src = currentUser.avatarUrl || 'https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/2.png';
 
+                document.getElementById('lots-count').textContent = currentUser.lotsCount || 0;
+
+                // Проверка роли
+                if (currentUser.role === 'Администратор') {
+                    const adminLink = document.getElementById('admin-panel-link');
+                    if (adminLink) adminLink.style.display = 'flex';
+                }
+
+                // Логика рассылки
+                const broadcastStatus = document.getElementById('broadcast-status');
+                const updateBroadcastUI = (isOn) => {
+                    broadcastStatus.textContent = isOn ? 'ВКЛ' : 'ВЫКЛ';
+                    broadcastStatus.style.color = isOn ? '#5F6E63' : '#c0392b';
+                };
+                updateBroadcastUI(currentUser.receiveBroadcasts);
+
+                // Рендер лотов
                 const lotsList = document.getElementById('my-lots-list');
                 const emptyState = document.getElementById('empty-state');
 
-                if (user.lots && user.lots.length > 0) {
+                if (currentUser.lots && currentUser.lots.length > 0) {
                     emptyState.style.display = 'none';
-                    lotsList.innerHTML = user.lots.map((lot) => `
-                        <a href="lot.html?id=${lot.id}" style="display: flex; align-items: center; gap: 15px; padding: 15px; background: #F5F7F5; border-radius: 15px; text-decoration: none; transition: transform 0.2s; box-sizing: border-box;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
-                            <img src="${lot.image || 'https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/1.jpg'}" alt="${lot.name}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 10px; flex-shrink: 0;">
-                            <div style="flex-grow: 1; min-width: 0;">
-                                <div style="color: #5F6E63; font-weight: 700; font-size: 16px; text-transform: uppercase; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${lot.name}</div>
-                                <div style="color: #7A8F80; font-size: 14px;">${lot.category}</div>
+                    lotsList.innerHTML = currentUser.lots.map((lot) => {
+                        const isExpired = lot.endTime && new Date(lot.endTime) < new Date();
+                        const statusText = isExpired ? '<span style="color: #c0392b; font-size: 12px; font-weight: bold; margin-left: 10px;">(Завершен)</span>' : '';
+                        const safeName = lot.name.replace(/'/g, "\\'");
+                        const safeDesc = (lot.description || '').replace(/'/g, "\\'").replace(/\n/g, '\\n');
+                        
+                        return `
+                        <div style="display: flex; align-items: center; justify-content: space-between; background: #F5F7F5; border-radius: 15px; padding: 15px; box-sizing: border-box;">
+                            <a href="lot.html?id=${lot.id}" style="display: flex; align-items: center; gap: 15px; text-decoration: none; flex-grow: 1;">
+                                <img src="${lot.image || 'https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/1.png'}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 10px;">
+                                <div style="min-width: 0;">
+                                    <div style="color: #5F6E63; font-weight: 700; font-size: 16px; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${lot.name} ${statusText}</div>
+                                    <div style="color: #7A8F80; font-size: 14px;">${lot.category} | ${lot.currentPrice} ₽</div>
+                                </div>
+                            </a>
+                            <div style="display: flex; gap: 10px; margin-left: 15px;">
+                                <button onclick="openEditModal(${lot.id}, '${safeName}', '${safeDesc}', '${lot.category}')" style="background: #5F6E63; color: #fff; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer; font-family: 'Alegreya Sans SC';">✎</button>
+                                <button onclick="deleteLot(${lot.id})" style="background: #c0392b; color: #fff; border: none; padding: 10px 15px; border-radius: 8px; cursor: pointer; font-family: 'Alegreya Sans SC';">🗑</button>
                             </div>
-                            <div style="color: #353F37; font-weight: 700; font-size: 18px; flex-shrink: 0;">${lot.currentPrice} ₽</div>
-                        </a>
-                    `).join('');
+                        </div>
+                        `;
+                    }).join('');
                 } else {
                     emptyState.style.display = 'flex';
                 }
@@ -183,10 +398,10 @@
                 console.error('Ошибка загрузки профиля:', err);
             }
 
-            document.getElementById('logout-btn').addEventListener('click', () => {
-                logout();
-            });
+            // кнопка выхода
+            document.getElementById('logout-btn').addEventListener('click', () => logout());
 
+            // переключение настроек
             const settingsBtn = document.getElementById('settings-btn');
             const closeSettingsBtn = document.getElementById('close-settings-btn');
             const mainProfileView = document.getElementById('main-profile-view');
@@ -203,6 +418,447 @@
                 settingsView.style.display = 'none';
                 mainProfileView.style.display = 'block';
                 pageTitle.textContent = 'Профиль';
+            });
+
+            // Уведомления как страница
+            const openNotificationsBtn = document.getElementById('open-notifications-btn');
+            const closeNotificationsBtn = document.getElementById('close-notifications-btn');
+            const notificationsView = document.getElementById('notifications-view');
+            const fullNotificationsList = document.getElementById('full-notifications-list');
+
+            openNotificationsBtn.addEventListener('click', async () => {
+                mainProfileView.style.display = 'none';
+                settingsView.style.display = 'none';
+                notificationsView.style.display = 'block';
+                pageTitle.textContent = 'Уведомления';
+
+                fullNotificationsList.innerHTML = '<p style="text-align: center; color: #7A8F80;">Загрузка...</p>';
+                
+                try {
+                    const res = await fetch('/api/notifications', {
+                        headers: { 'Authorization': `Bearer ${getToken()}` }
+                    });
+                    const notifications = await res.json();
+
+                    if (notifications.length === 0) {
+                        fullNotificationsList.innerHTML = '<p style="text-align: center; color: #7A8F80; font-size: 18px;">У вас пока нет уведомлений.</p>';
+                        return;
+                    }
+
+                    fullNotificationsList.innerHTML = notifications.map(n => `
+                        <div style="padding: 20px; border-radius: 15px; background: ${n.isRead ? '#F9F9F9' : '#F5F7F5'}; border-left: 4px solid ${n.isRead ? '#A6A6A6' : '#5F6E63'};">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 8px;">
+                                <strong style="color: #5F6E63; font-size: 18px;">${n.title}</strong>
+                                <span style="color: #A6A6A6; font-size: 14px;">${new Date(n.createdAt).toLocaleString('ru-RU')}</span>
+                            </div>
+                            <p style="color: #353F37; font-size: 16px; line-height: 1.5; margin: 0; white-space: pre-wrap;">${n.message}</p>
+                        </div>
+                    `).join('');
+
+                    // Помечаем как прочитанные
+                    await fetch('/api/notifications/read', {
+                        method: 'PUT',
+                        headers: { 'Authorization': `Bearer ${getToken()}` }
+                    });
+
+                } catch (e) {
+                    console.error(e);
+                    fullNotificationsList.innerHTML = '<p style="text-align: center; color: #c0392b;">Ошибка загрузки уведомлений.</p>';
+                }
+            });
+
+            closeNotificationsBtn.addEventListener('click', () => {
+                notificationsView.style.display = 'none';
+                mainProfileView.style.display = 'block';
+                pageTitle.textContent = 'Профиль';
+            });
+
+            // кнопка рассылки
+            const toggleBroadcastBtn = document.getElementById('toggle-broadcast-btn');
+            toggleBroadcastBtn.addEventListener('click', async () => {
+                try {
+                    const res = await fetch('/api/notifications/toggle-broadcasts', {
+                        method: 'PUT',
+                        headers: { 'Authorization': `Bearer ${getToken()}` }
+                    });
+                    const data = await res.json();
+                    if (res.ok) {
+                        const broadcastStatus = document.getElementById('broadcast-status');
+                        broadcastStatus.textContent = data.receiveBroadcasts ? 'ВКЛ' : 'ВЫКЛ';
+                        broadcastStatus.style.color = data.receiveBroadcasts ? '#5F6E63' : '#c0392b';
+                        if (currentUser) currentUser.receiveBroadcasts = data.receiveBroadcasts;
+                    }
+                } catch(e) { console.error(e); }
+            });
+
+            // редактирование и удаление лота
+            const editModal = document.getElementById('edit-lot-modal');
+            const closeEditModal = document.getElementById('close-edit-modal');
+
+            window.openEditModal = (id, name, desc, categoryName) => {
+                document.getElementById('edit-lot-id').value = id;
+                document.getElementById('edit-lot-name').value = name;
+                document.getElementById('edit-lot-desc').value = desc;
+                editCategorySelect.value = categoryName;
+                editModal.style.display = 'flex';
+            };
+
+            closeEditModal.onclick = () => editModal.style.display = 'none';
+
+            document.getElementById('save-edit-btn').onclick = async () => {
+                const id = document.getElementById('edit-lot-id').value;
+                const name = document.getElementById('edit-lot-name').value;
+                const description = document.getElementById('edit-lot-desc').value;
+                const categoryName = editCategorySelect.value;
+
+                const catRes = await fetch('/api/categories');
+                const cats = await catRes.json();
+                const catId = cats.find(c => c.name === categoryName)?.id;
+
+                try {
+                    const res = await fetch(`/api/lots/${id}`, {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${getToken()}` },
+                        body: JSON.stringify({ name, description, categoryId: catId })
+                    });
+                    if (res.ok) window.location.reload();
+                    else alert('Ошибка при сохранении');
+                } catch (e) { alert('Ошибка сервера'); }
+            };
+
+            window.deleteLot = async (id) => {
+                if (!confirm('Вы уверены, что хотите удалить этот лот?')) return;
+                try {
+                    const res = await fetch(`/api/lots/${id}`, {
+                        method: 'DELETE',
+                        headers: { 'Authorization': `Bearer ${getToken()}` }
+                    });
+                    if (res.ok) window.location.reload();
+                    else alert('Ошибка при удалении');
+                } catch (e) { alert('Ошибка сервера'); }
+            };
+
+            // Редактирование профиля
+            const editProfileModal = document.getElementById('edit-profile-modal');
+            const openEditProfileBtn = document.getElementById('open-edit-profile-btn');
+            const closeProfileModal = document.getElementById('close-profile-modal');
+            const saveProfileBtn = document.getElementById('save-profile-btn');
+
+            openEditProfileBtn.addEventListener('click', () => {
+                document.getElementById('edit-profile-name').value = currentUser.name;
+                document.getElementById('edit-profile-avatar').value = currentUser.avatarUrl || '';
+                document.getElementById('new-email-input').value = '';
+                document.getElementById('edit-profile-error').style.display = 'none';
+                document.getElementById('edit-profile-success').style.display = 'none';
+                document.getElementById('email-code-wrapper').style.display = 'none';
+                editProfileModal.style.display = 'flex';
+            });
+
+            closeProfileModal.addEventListener('click', () => editProfileModal.style.display = 'none');
+
+            saveProfileBtn.addEventListener('click', async () => {
+                const name = document.getElementById('edit-profile-name').value;
+                const avatarUrl = document.getElementById('edit-profile-avatar').value;
+                
+                try {
+                    const res = await fetch('/api/users/me', {
+                        method: 'PUT',
+                        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${getToken()}` },
+                        body: JSON.stringify({ name, avatarUrl })
+                    });
+                    if (res.ok) {
+                        const data = await res.json();
+                        localStorage.setItem('avabid_user', JSON.stringify(data.user));
+                        window.location.reload();
+                    }
+                } catch (e) { alert('Ошибка сохранения'); }
+            });
+
+            // Логика смены почты
+            const sendEmailCodeBtn = document.getElementById('send-email-code-btn');
+            const confirmEmailBtn = document.getElementById('confirm-email-btn');
+
+            sendEmailCodeBtn.addEventListener('click', async () => {
+                const email = document.getElementById('new-email-input').value;
+                if (!email) return;
+                
+                try {
+                    const res = await fetch('/api/auth/request-code', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email })
+                    });
+                    const data = await res.json();
+                    
+                    if (res.ok) {
+                        document.getElementById('email-code-wrapper').style.display = 'flex';
+                        document.getElementById('edit-profile-success').textContent = `Код отправлен! (Для теста: ${data.debugCode})`;
+                        document.getElementById('edit-profile-success').style.display = 'block';
+                    } else {
+                        document.getElementById('edit-profile-error').textContent = data.error;
+                        document.getElementById('edit-profile-error').style.display = 'block';
+                    }
+                } catch(e) { console.error(e); }
+            });
+
+            confirmEmailBtn.addEventListener('click', async () => {
+                const newEmail = document.getElementById('new-email-input').value;
+                const code = document.getElementById('email-code-input').value;
+                
+                try {
+                    const res = await fetch('/api/auth/change-email', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${getToken()}` },
+                        body: JSON.stringify({ newEmail, code })
+                    });
+                    const data = await res.json();
+                    
+                    if (res.ok) {
+                        alert('Почта изменена! Войдите заново.');
+                        logout();
+                    } else {
+                        document.getElementById('edit-profile-error').textContent = data.error;
+                        document.getElementById('edit-profile-error').style.display = 'block';
+                    }
+                } catch(e) { console.error(e); }
+            });
+                        // поддержка в настройках
+            const supportModalProfile = document.getElementById('support-modal-profile');
+            const openSupportBtn = document.getElementById('open-support-btn');
+            const closeSupportModalProfile = document.getElementById('close-support-modal-profile');
+            const sendSupportBtnProfile = document.getElementById('send-support-btn-profile');
+            const supportStatusProfile = document.getElementById('support-status-profile');
+
+            // Открытие модалки
+            openSupportBtn.addEventListener('click', () => {
+                supportModalProfile.style.display = 'flex';
+                supportStatusProfile.style.display = 'none';
+                
+                // Автоматически подставляем почту текущего пользователя, если он авторизован
+                if (currentUser && currentUser.email) {
+                    document.getElementById('support-email-profile').value = currentUser.email;
+                }
+            });
+
+            // Закрытие модалки (крестик и клик по фону)
+            closeSupportModalProfile.addEventListener('click', () => supportModalProfile.style.display = 'none');
+            supportModalProfile.addEventListener('click', (e) => {
+                if (e.target === supportModalProfile) supportModalProfile.style.display = 'none';
+            });
+
+            // Отправка формы
+            sendSupportBtnProfile.addEventListener('click', async () => {
+                const email = document.getElementById('support-email-profile').value.trim();
+                const content = document.getElementById('support-content-profile').value.trim();
+
+                if (!email || !content) {
+                    supportStatusProfile.textContent = 'Заполните все поля!';
+                    supportStatusProfile.style.color = '#c0392b';
+                    supportStatusProfile.style.display = 'block';
+                    return;
+                }
+
+                sendSupportBtnProfile.disabled = true;
+                sendSupportBtnProfile.textContent = 'Отправка...';
+
+                try {
+                    const res = await fetch('/api/support', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email, content })
+                    });
+
+                    if (res.ok) {
+                        supportStatusProfile.textContent = 'Обращение в поддержку отправлено!';
+                        supportStatusProfile.style.color = '#5F6E63';
+                        supportStatusProfile.style.display = 'block';
+                        
+                        document.getElementById('support-content-profile').value = '';
+                        
+                        setTimeout(() => { supportModalProfile.style.display = 'none'; }, 2500);
+                    } else {
+                        throw new Error('Ошибка сервера');
+                    }
+                } catch (e) {
+                    supportStatusProfile.textContent = 'Ошибка при отправке.';
+                    supportStatusProfile.style.color = '#c0392b';
+                    supportStatusProfile.style.display = 'block';
+                } finally {
+                    sendSupportBtnProfile.disabled = false;
+                    sendSupportBtnProfile.textContent = 'Отправить';
+                }
+            });
+                        // смена аккаунта
+            const switchAccountBtn = document.getElementById('switch-account-btn');
+            const switchAccountModal = document.getElementById('switch-account-modal');
+            const closeSwitchModal = document.getElementById('close-switch-modal');
+            const doSwitchBtn = document.getElementById('do-switch-btn');
+            const switchStatus = document.getElementById('switch-status');
+
+            // Открытие
+            switchAccountBtn.addEventListener('click', () => {
+                switchAccountModal.style.display = 'flex';
+                switchStatus.style.display = 'none';
+                document.getElementById('switch-email').value = '';
+                document.getElementById('switch-password').value = '';
+            });
+
+            // Закрытие
+            closeSwitchModal.addEventListener('click', () => switchAccountModal.style.display = 'none');
+            switchAccountModal.addEventListener('click', (e) => {
+                if (e.target === switchAccountModal) switchAccountModal.style.display = 'none';
+            });
+
+            // Кнопка "Войти"
+            doSwitchBtn.addEventListener('click', async () => {
+                const email = document.getElementById('switch-email').value.trim();
+                const password = document.getElementById('switch-password').value;
+
+                if (!email || !password) {
+                    switchStatus.textContent = 'Заполните все поля!';
+                    switchStatus.style.color = '#c0392b';
+                    switchStatus.style.display = 'block';
+                    return;
+                }
+
+                doSwitchBtn.disabled = true;
+                doSwitchBtn.textContent = 'Вход...';
+
+                try {
+                    // Вызываем функцию login из auth.js
+                    await login(email, password);
+                    
+                    switchStatus.textContent = 'Успешный вход! Перезагрузка...';
+                    switchStatus.style.color = '#5F6E63';
+                    switchStatus.style.display = 'block';
+
+                    // Перезагружаем страницу, чтобы профиль обновился под нового пользователя
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 1000);
+
+                } catch (error) {
+                    switchStatus.textContent = error.message || 'Неверный email или пароль';
+                    switchStatus.style.color = '#c0392b';
+                    switchStatus.style.display = 'block';
+                    doSwitchBtn.disabled = false;
+                    doSwitchBtn.textContent = 'Войти';
+                }
+            });
+                        // снос акаунта чорт
+            const deleteAccountBtn = document.getElementById('delete-account-btn');
+            const deleteAccountModal = document.getElementById('delete-account-modal');
+            const closeDeleteModal = document.getElementById('close-delete-modal');
+            const deleteStep1 = document.getElementById('delete-step-1');
+            const deleteStep2 = document.getElementById('delete-step-2');
+            const deleteNextBtn = document.getElementById('delete-next-btn');
+            const deleteConfirmBtn = document.getElementById('delete-confirm-btn');
+            const deleteCancelBtn = document.getElementById('delete-cancel-btn');
+            const deleteError1 = document.getElementById('delete-error-1');
+            const deleteError2 = document.getElementById('delete-error-2');
+
+            // Открытие модалки
+            deleteAccountBtn.addEventListener('click', () => {
+                deleteAccountModal.style.display = 'flex';
+                deleteStep1.style.display = 'block';
+                deleteStep2.style.display = 'none';
+                document.getElementById('delete-password').value = '';
+                deleteError1.style.display = 'none';
+                deleteError2.style.display = 'none';
+            });
+
+            // Закрытие
+            closeDeleteModal.addEventListener('click', () => deleteAccountModal.style.display = 'none');
+            deleteAccountModal.addEventListener('click', (e) => {
+                if (e.target === deleteAccountModal) deleteAccountModal.style.display = 'none';
+            });
+            deleteCancelBtn.addEventListener('click', () => deleteAccountModal.style.display = 'none');
+
+            // Шаг 1 -> Шаг 2
+            deleteNextBtn.addEventListener('click', () => {
+                const password = document.getElementById('delete-password').value;
+                if (!password) {
+                    deleteError1.textContent = 'Введите пароль';
+                    deleteError1.style.display = 'block';
+                    return;
+                }
+                // Просто переключаем шаг. Проверка пароля будет на сервере при удалении.
+                deleteStep1.style.display = 'none';
+                deleteStep2.style.display = 'block';
+            });
+
+            // Шаг 2 -> Удаление
+            deleteConfirmBtn.addEventListener('click', async () => {
+                const password = document.getElementById('delete-password').value;
+                deleteConfirmBtn.disabled = true;
+                deleteConfirmBtn.textContent = 'Удаление...';
+                deleteError2.style.display = 'none';
+
+                try {
+                    const res = await fetch('/api/users/me', {
+                        method: 'DELETE',
+                        headers: { 
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${getToken()}` 
+                        },
+                        body: JSON.stringify({ password })
+                    });
+
+                    const data = await res.json();
+
+                    if (res.ok) {
+                        alert('Ваш аккаунт был успешно удален. До свидания!');
+                        logout(); // Выходим и редиректим на логин
+                    } else {
+                        throw new Error(data.error || 'Ошибка удаления');
+                    }
+                } catch (error) {
+                    deleteError2.textContent = error.message;
+                    deleteError2.style.display = 'block';
+                    deleteConfirmBtn.disabled = false;
+                    deleteConfirmBtn.textContent = 'Удалить';
+                    
+                    // Если пароль неверный, возвращаем на первый шаг
+                    if (error.message.includes('пароль')) {
+                        setTimeout(() => {
+                            deleteStep2.style.display = 'none';
+                            deleteStep1.style.display = 'block';
+                            deleteError1.textContent = 'Неверный пароль. Попробуйте снова.';
+                            deleteError1.style.display = 'block';
+                        }, 2000);
+                    }
+                }
+            });
+        });
+    </script>
+    <script src="../notifications.js"></script>
+    <script src="../theme.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Логика для модалки выбора темы
+            const themeModal = document.getElementById('theme-modal');
+            const openThemeBtn = document.getElementById('open-theme-modal');
+            const closeThemeBtn = document.getElementById('close-theme-modal');
+            const lightBtn = document.getElementById('theme-light-btn');
+            const darkBtn = document.getElementById('theme-dark-btn');
+
+            // Открыть/Закрыть
+            openThemeBtn.addEventListener('click', () => themeModal.style.display = 'flex');
+            closeThemeBtn.addEventListener('click', () => themeModal.style.display = 'none');
+            themeModal.addEventListener('click', (e) => {
+                if (e.target === themeModal) themeModal.style.display = 'none';
+            });
+
+            // Выбор светлой темы
+            lightBtn.addEventListener('click', () => {
+                applyTheme('light');
+                themeModal.style.display = 'none';
+            });
+
+            // Выбор темной темы
+            darkBtn.addEventListener('click', () => {
+                applyTheme('dark');
+                themeModal.style.display = 'none';
             });
         });
     </script>

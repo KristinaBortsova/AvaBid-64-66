@@ -563,3 +563,315 @@
     @apply text-price;
   }
 }
+/*темная темка */
+.dark-mode {
+    background-color: #0a0a0a !important;
+    color: #E8EFE5 !important;
+}
+
+/* Фоновая картинка */
+.dark-mode::before {
+    background-image: url('https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/diting_result_e2848f77dd3a11f1b5104ab2cb67a397_1.jpeg') !important;
+    opacity: 0.15 !important;
+}
+
+/* Перекрашиваем ВСЕ основные панели и модальные окна */
+.dark-mode .sidebar, 
+.dark-mode .top-header, 
+.dark-mode .profile-header-card, 
+.dark-mode .profile-content, 
+.dark-mode .profile-actions, 
+.dark-mode .settings-menu,
+.dark-mode .lot-card,
+.dark-mode .login-modal,
+.dark-mode .about-container,
+.dark-mode .subcategories-container,
+.dark-mode .recovery-card,
+.dark-mode .category-card,
+.dark-mode #edit-lot-modal > div,
+.dark-mode #edit-profile-modal > div,
+.dark-mode #support-modal-profile > div,
+.dark-mode #switch-account-modal > div,
+.dark-mode #support-modal > div,
+.dark-mode #help-modal > div,
+.dark-mode #rules-modal > div,
+.dark-mode #theme-modal > div {
+    background-color: #1a1a1a !important;
+    border-color: #333 !important;
+    color: #E8EFE5 !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6) !important;
+}
+
+/* Перекрашиваем заголовки внутри модальных окон */
+.dark-mode #edit-lot-modal h2,
+.dark-mode #edit-profile-modal h2,
+.dark-mode #support-modal-profile h2,
+.dark-mode #switch-account-modal h2,
+.dark-mode #support-modal h2,
+.dark-mode #help-modal h2,
+.dark-mode #rules-modal h2,
+.dark-mode #theme-modal h2 {
+    color: #E8EFE5 !important;
+}
+
+/* Перекрашиваем навигацию (сайдбар) */
+.dark-mode .nav-item {
+    background-color: #2a2a2a !important;
+    color: #A6A6A6 !important;
+}
+
+.dark-mode .nav-item.active {
+    background-color: #444 !important;
+    color: #FFFFFF !important;
+}
+
+/*Кнопки в профиле (Создать лот, Уведомления и т.д.) */
+.dark-mode .action-btn {
+    background-color: #2a2a2a !important;
+    color: #E8EFE5 !important;
+    border: 1px solid #444 !important;
+}
+.dark-mode .action-btn:hover {
+    background-color: #3a3a3a !important;
+}
+
+/* Перекрашиваем текст */
+.dark-mode h1, 
+.dark-mode h2, 
+.dark-mode h3, 
+.dark-mode .profile-text h2, 
+.dark-mode .section-title,
+.dark-mode .lot-name {
+    color: #E8EFE5 !important;
+}
+
+.dark-mode p, 
+.dark-mode span, 
+.dark-mode label,
+.dark-mode .profile-text p,
+.dark-mode .lot-time,
+.dark-mode .empty-state {
+    color: #A6A6A6 !important;
+}
+
+/* Инпуты в модальных окнах */
+.dark-mode .input-group input,
+.dark-mode .input-group textarea,
+.dark-mode .input-group select,
+.dark-mode .recovery-input {
+    background-color: #2a2a2a !important;
+    color: #E8EFE5 !important;
+    border: 1px solid #444 !important;
+}
+
+.dark-mode .login-btn, 
+.dark-mode .recovery-btn, 
+.dark-mode .edit-btn, 
+.dark-mode .about-btn {
+    background-color: #5F6E63 !important;
+    color: #FFFFFF !important;
+}
+
+.dark-mode .lot-bid-info, 
+.dark-mode .lot-price {
+    color: #E8EFE5 !important;
+}
+
+/* ИСПРАВЛЕНИЕ: Карточки в списке уведомлений */
+.dark-mode #full-notifications-list > div {
+    background-color: #2a2a2a !important;
+    border-left-color: #5F6E63 !important;
+}
+
+/* ИСПРАВЛЕНИЕ: Логотип (убираем белый квадрат) */
+.dark-mode .sidebar-logo img {
+    background-color: transparent !important;
+    border-radius: 10px;
+}
+/* Трюк для удаления белого фона с jpg-картинки в темной теме */
+.dark-mode .sidebar-logo img {
+    mix-blend-mode: screen;
+}
+/* темная темка для колокольчика*/
+
+/* Фон самого окна */
+.dark-mode #notification-dropdown {
+    background-color: #1a1a1a !important;
+    border-color: #333 !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6) !important;
+}
+
+/* Заголовок "Уведомления" */
+.dark-mode #notification-dropdown h3 {
+    color: #E8EFE5 !important;
+}
+
+/* Карточки внутри уведомлений (перебиваем инлайновый фон) */
+.dark-mode #notification-dropdown div[style*="background"] {
+    background-color: #2a2a2a !important;
+    border-bottom-color: #444 !important;
+}
+
+/* Заголовок уведомления (Ответ на ваше обращение) */
+.dark-mode #notification-dropdown div[style*="color: #353F37"] {
+    color: #E8EFE5 !important;
+}
+
+/* Текст сообщения */
+.dark-mode #notification-dropdown div[style*="color: #5F6E63"] {
+    color: #A6A6A6 !important;
+}
+
+/* Дата */
+.dark-mode #notification-dropdown div[style*="color: #A6A6A6"] {
+    color: #666 !important;
+}
+/* темная темка для лота */
+
+/* Главный контейнер лота */
+.dark-mode .lot-detail-container {
+    background-color: #1a1a1a !important;
+    border-color: #333 !important;
+}
+
+/* Блок с текущей ставкой */
+.dark-mode .lot-bid-info {
+    color: #E8EFE5 !important;
+}
+
+/* Блок таймера */
+.dark-mode .lot-timer-box {
+    background-color: #2a2a2a !important;
+    border-color: #444 !important;
+    color: #E8EFE5 !important;
+}
+.dark-mode .lot-timer-box svg {
+    stroke: #A6A6A6 !important;
+}
+
+/* Блок с историей ставок (где BLYDE) */
+.dark-mode .bid-item {
+    background-color: #2a2a2a !important;
+    color: #E8EFE5 !important;
+}
+.dark-mode .bid-avatar {
+    background-color: #444 !important;
+}
+
+/* Кнопки "Сделать ставку" и "Купить сейчас" */
+.dark-mode .action-btn-outline {
+    color: #E8EFE5 !important;
+    border-color: #5F6E63 !important;
+}
+.dark-mode .action-btn-outline:hover {
+    background-color: #5F6E63 !important;
+    color: #FFFFFF !important;
+}
+
+/* Текст автора и описания */
+.dark-mode .lot-author,
+.dark-mode .lot-description,
+.dark-mode .lot-description span {
+    color: #E8EFE5 !important;
+}
+
+/* Автор (имя-ссылка) */
+.dark-mode #author-link {
+    color: #E8EFE5 !important;
+}
+
+/* Если лот завершен */
+.dark-mode .lot-bid-info[style*="color: #c0392b"] {
+    color: #ff6b6b !important; /* Делаем красный более ярким для темного фона */
+}
+/* сделать темную ставку */
+
+/* Фон самого окна */
+.dark-mode #bid-modal > div {
+    background-color: #1a1a1a !important;
+    border-color: #333 !important;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.6) !important;
+}
+
+/* Заголовок "Сделать ставку" */
+.dark-mode #bid-modal h2 {
+    color: #E8EFE5 !important;
+}
+
+/* Текст "Минимальная ставка: ..." */
+.dark-mode #bid-modal p {
+    color: #A6A6A6 !important;
+}
+
+/* Сама минимальная ставка (число) */
+.dark-mode #bid-modal #min-bid-info {
+    color: #E8EFE5 !important;
+}
+
+/* Подпись "Сумма ставки (₽)" */
+.dark-mode #bid-modal label {
+    color: #E8EFE5 !important;
+}
+
+/* Поле ввода (уже темное, но на всякий случай) */
+.dark-mode #bid-modal input {
+    background-color: #2a2a2a !important;
+    color: #E8EFE5 !important;
+    border: 1px solid #444 !important;
+}
+
+/* Текст ошибки "Недостаточно средств" */
+.dark-mode #bid-modal #bid-error {
+    color: #ff6b6b !important; /* Делаем красный более ярким */
+}
+
+/* Кнопка-крестик закрытия */
+.dark-mode #bid-modal #close-bid-modal {
+    border-color: #5F6E63 !important;
+    color: #E8EFE5 !important;
+}
+/* темная админ панелька*/
+
+/* Белый контейнер, в котором лежат тикеты (перебиваем инлайн-стиль) */
+.dark-mode .profile-content[style*="background: #fff"] {
+    background-color: #1a1a1a !important;
+}
+
+/* Карточки тикетов */
+.dark-mode #tickets-list > div {
+    background-color: #1a1a1a !important;
+    border-color: #333 !important;
+}
+
+/* Заголовки и текст внутри тикетов */
+.dark-mode #tickets-list strong,
+.dark-mode #tickets-list p {
+    color: #E8EFE5 !important;
+}
+
+/* Дата создания */
+.dark-mode #tickets-list span[style*="color: #A6A6A6"] {
+    color: #666 !important;
+}
+
+/* Блок для ввода ответа (серый фон) */
+.dark-mode #tickets-list div[style*="background: #F5F7F5"] {
+    background-color: #2a2a2a !important;
+}
+
+/* Само поле ввода (textarea) */
+.dark-mode #tickets-list textarea {
+    background-color: #111 !important;
+    color: #E8EFE5 !important;
+    border: 1px solid #444 !important;
+}
+
+/* Блок с уже отправленным ответом (зеленоватый фон) */
+.dark-mode #tickets-list div[style*="background: #E8EFE5"] {
+    background-color: #2a2a2a !important;
+    color: #E8EFE5 !important;
+    border-left-color: #5F6E63 !important;
+}
+.dark-mode #tickets-list div[style*="background: #E8EFE5"] strong {
+    color: #E8EFE5 !important;
+}

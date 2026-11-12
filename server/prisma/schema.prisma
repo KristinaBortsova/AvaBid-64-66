@@ -21,19 +21,31 @@ model User {
   password  String
   phone     String?
   balance   Float    @default(0)
+  avatarUrl String?
   createdAt DateTime @default(now())
+  
+  // Новое поле: включена ли рассылка (по умолчанию выключена)
+  receiveBroadcasts Boolean @default(false) 
+
   roleId    Int
   role      Role     @relation(fields: [roleId], references: [id])
 
-  lots         Lot[]
-  bids         Bid[]
-  transactions Transaction[]
+  lots          Lot[]
+  bids          Bid[]
+  transactions  Transaction[]
+  
+  // Новые связи
+  notifications Notification[]
+  tickets       SupportTicket[]
 }
 
 model Category {
-  id   Int    @id @default(autoincrement())
-  name String @unique
-  lots Lot[]
+  id       Int        @id @default(autoincrement())
+  name     String
+  parentId Int?
+  parent   Category?  @relation("CategoryHierarchy", fields: [parentId], references: [id])
+  children Category[] @relation("CategoryHierarchy")
+  lots     Lot[]
 }
 
 model StatusLot {
@@ -111,4 +123,27 @@ model Transaction {
   bid      Bid             @relation(fields: [bidId], references: [id])
   statusId Int
   status   StatusTransaction @relation(fields: [statusId], references: [id])
+}
+
+model SupportTicket {
+  id        Int      @id @default(autoincrement())
+  email     String
+  content   String
+  reply     String?  // Ответ админа
+  status    String   @default("OPEN") // OPEN или CLOSED
+  createdAt DateTime @default(now())
+  
+  userId    Int?
+  user      User?    @relation(fields: [userId], references: [id])
+}
+
+model Notification {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  user      User     @relation(fields: [userId], references: [id])
+  title     String
+  message   String
+  isRead    Boolean  @default(false)
+  type      String   @default("SYSTEM") // SYSTEM, SUPPORT, BROADCAST
+  createdAt DateTime @default(now())
 }

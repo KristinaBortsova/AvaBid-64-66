@@ -15,9 +15,8 @@
     <div class="app-container">
         <aside class="sidebar">
             <div class="sidebar-logo">
-                <img src="https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/1.jpg" alt="AvaBid Logo">
+                <img src="https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/1.png" alt="AvaBid Logo">
             </div>
-
             <nav class="sidebar-nav">
                 <a href="../index.html" class="nav-item">
                     <svg width="30" height="30" viewBox="0 0 37 37" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -45,7 +44,6 @@
                     </svg> О нас
                 </a>
             </nav>
-
             <div class="sidebar-footer">
                 <p>Талант<br>Вдохновляет Мир</p>
                 <img src="https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/2.png" alt="Small Logo">
@@ -66,43 +64,43 @@
 
             <div class="subcategories-container">
                 <div class="subcategories-grid">
-                    <a href="#" class="subcategory-card">
+                    <a href="#" data-name="Люди" class="subcategory-card">
                         <div class="subcategory-image">
                             <img src="https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/image%2015.png" alt="Люди">
                         </div>
                         <span class="subcategory-name">Люди</span>
                     </a>
-                    <a href="#" class="subcategory-card">
+                    <a href="#" data-name="GIF" class="subcategory-card">
                         <div class="subcategory-image">
                             <img src="https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/image%2016.png" alt="GIF">
                         </div>
                         <span class="subcategory-name">GIF</span>
                     </a>
-                    <a href="#" class="subcategory-card">
+                    <a href="#" data-name="Животные" class="subcategory-card">
                         <div class="subcategory-image">
                             <img src="https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/image%2017.png" alt="Животные">
                         </div>
                         <span class="subcategory-name">Животные</span>
                     </a>
-                    <a href="#" class="subcategory-card">
+                    <a href="#" data-name="Адопты" class="subcategory-card">
                         <div class="subcategory-image">
                             <img src="https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/image%2018.png" alt="Адопты">
                         </div>
                         <span class="subcategory-name">Адопты</span>
                     </a>
-                    <a href="#" class="subcategory-card">
+                    <a href="#" data-name="УСН" class="subcategory-card">
                         <div class="subcategory-image">
                             <img src="https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/image%2019.png" alt="УСН">
                         </div>
                         <span class="subcategory-name">УСН</span>
                     </a>
-                    <a href="#" class="subcategory-card">
+                    <a href="#" data-name="Фэнтези" class="subcategory-card">
                         <div class="subcategory-image">
                             <img src="https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/image%2020.png" alt="Фэнтези">
                         </div>
                         <span class="subcategory-name">Фэнтези</span>
                     </a>
-                    <a href="#" class="subcategory-card">
+                    <a href="#" data-name="Паки артов" class="subcategory-card">
                         <div class="subcategory-image">
                             <img src="https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/image%2021.png" alt="Паки артов">
                         </div>
@@ -112,5 +110,25 @@
             </div>
         </main>
     </div>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+        try {
+            const res = await fetch('/api/categories');
+            const categories = await res.json();
+            const parent = categories.find(c => c.name === 'Арты');
+            
+            document.querySelectorAll('.subcategory-card').forEach(link => {
+                const subName = link.getAttribute('data-name');
+                const sub = categories.find(c => c.name === subName && c.parentId === parent.id);
+                if (sub) {
+                    link.href = `category-lots.html?categoryId=${sub.id}&name=${subName}`;
+                }
+            });
+        } catch(e) { console.error(e); }
+    });
+    </script>
+    <script src="../notifications.js"></script>
+    <script src="../theme.js"></script>
 </body>
 </html>

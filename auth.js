@@ -1,5 +1,5 @@
 (function () {
-  const API_URL_AUTH = 'http://localhost:3000/api';
+  const API_URL = '/api';
   const SESSION_TTL_MS = 60 * 60 * 1000; // 60 минут
 
   function saveToken(token, user) {

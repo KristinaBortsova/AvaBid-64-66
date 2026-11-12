@@ -15,7 +15,7 @@
     <div class="app-container">
         <aside class="sidebar">
             <div class="sidebar-logo">
-                <img src="https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/1.jpg" alt="AvaBid Logo">
+                <img src="https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/1.png" alt="AvaBid Logo">
             </div>
 
             <nav class="sidebar-nav">
@@ -74,12 +74,202 @@
                 </div>
 
                 <div class="about-buttons">
-                    <button class="about-btn">Вопросы и предложения</button>
-                    <button class="about-btn">Поддержка</button>
-                    <button class="about-btn">Правила и инструкции площадки</button>
+                    <button class="about-btn" id="open-support-modal">Вопросы и предложения</button>
+                    <button class="about-btn" id="open-help-modal">Поддержка</button>
+                    <button class="about-btn" id="open-rules-modal">Правила и инструкции площадки</button>
                 </div>
             </div>
+
+            <!-- МОДАЛЬНОЕ ОКНО: ВОПРОСЫ И ПРЕДЛОЖЕНИЯ -->
+            <div id="support-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
+                <div style="background: #fff; border-radius: 20px; padding: 40px; max-width: 500px; width: 90%; position: relative;">
+                    <button id="close-support-modal" style="position: absolute; top: 15px; right: 15px; width: 35px; height: 35px; border: 2px solid #5F6E63; border-radius: 8px; background: transparent; cursor: pointer; color: #5F6E63; display: flex; justify-content: center; align-items: center;">✕</button>
+                    <h2 style="color: #5F6E63; font-size: 24px; margin-bottom: 20px; text-transform: uppercase;">Вопросы и предложения</h2>
+                    <p style="color: #7A8F80; font-size: 14px; margin-bottom: 20px;">Спасибо за ваш вклад!:з Опишите вашу идею или предложение по улучшению платформы.</p>
+
+                    <div class="input-group" style="margin-bottom: 15px;">
+                        <label style="color: #5F6E63; font-weight: 700; font-size: 14px; display: block; margin-bottom: 5px;">Ваша почта для связи</label>
+                        <input type="email" id="support-email" placeholder="example@mail.ru" style="width: 100%; background: #E8EFE5; border: none; border-radius: 10px; padding: 15px; font-family: 'Alegreya Sans SC'; font-size: 16px; outline: none; box-sizing: border-box;">
+                    </div>
+                    <div class="input-group" style="margin-bottom: 25px;">
+                        <label style="color: #5F6E63; font-weight: 700; font-size: 14px; display: block; margin-bottom: 5px;">Сообщение</label>
+                        <textarea id="support-content" rows="4" placeholder="Ваша идея..." style="width: 100%; background: #E8EFE5; border: none; border-radius: 10px; padding: 15px; font-family: 'Alegreya Sans SC'; font-size: 16px; outline: none; resize: vertical; box-sizing: border-box;"></textarea>
+                    </div>
+                    <button id="send-support-btn" class="recovery-btn" style="width: 100%;">Отправить</button>
+                    <p id="support-status" style="text-align: center; margin-top: 15px; font-size: 14px; display: none; font-weight: 700;"></p>
+                </div>
+            </div>
+
+            <!-- МОДАЛЬНОЕ ОКНО: ПОДДЕРЖКА -->
+            <div id="help-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
+                <div style="background: #fff; border-radius: 20px; padding: 40px; max-width: 500px; width: 90%; position: relative;">
+                    <button id="close-help-modal" style="position: absolute; top: 15px; right: 15px; width: 35px; height: 35px; border: 2px solid #5F6E63; border-radius: 8px; background: transparent; cursor: pointer; color: #5F6E63; display: flex; justify-content: center; align-items: center;">✕</button>
+                    <h2 style="color: #5F6E63; font-size: 24px; margin-bottom: 20px; text-transform: uppercase;">Поддержка</h2>
+                    <p style="color: #7A8F80; font-size: 14px; margin-bottom: 20px;">Очень жаль, что у вас возникли проблемы! Пожалуйста, опишите вашу проблему, и мы постараемся помочь вам в ближайшее время.</p>
+
+                    <div class="input-group" style="margin-bottom: 15px;">
+                        <label style="color: #5F6E63; font-weight: 700; font-size: 14px; display: block; margin-bottom: 5px;">Ваша почта для связи</label>
+                        <input type="email" id="help-email" placeholder="example@mail.ru" style="width: 100%; background: #E8EFE5; border: none; border-radius: 10px; padding: 15px; font-family: 'Alegreya Sans SC'; font-size: 16px; outline: none; box-sizing: border-box;">
+                    </div>
+                    <div class="input-group" style="margin-bottom: 25px;">
+                        <label style="color: #5F6E63; font-weight: 700; font-size: 14px; display: block; margin-bottom: 5px;">Описание проблемы</label>
+                        <textarea id="help-content" rows="4" placeholder="Что случилось?" style="width: 100%; background: #E8EFE5; border: none; border-radius: 10px; padding: 15px; font-family: 'Alegreya Sans SC'; font-size: 16px; outline: none; resize: vertical; box-sizing: border-box;"></textarea>
+                    </div>
+                    <button id="send-help-btn" class="recovery-btn" style="width: 100%;">Отправить</button>
+                    <p id="help-status" style="text-align: center; margin-top: 15px; font-size: 14px; display: none; font-weight: 700;"></p>
+                </div>
+            </div>
+
+            <!-- МОДАЛЬНОЕ ОКНО: ПРАВИЛА -->
+            <div id="rules-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
+                <div style="background: #fff; border-radius: 20px; padding: 40px; max-width: 600px; width: 90%; position: relative; max-height: 80vh; display: flex; flex-direction: column;">
+                    <button id="close-rules-modal" style="position: absolute; top: 15px; right: 15px; width: 35px; height: 35px; border: 2px solid #5F6E63; border-radius: 8px; background: transparent; cursor: pointer; color: #5F6E63; display: flex; justify-content: center; align-items: center;">✕</button>
+                    <h2 style="color: #5F6E63; font-size: 24px; margin-bottom: 20px; text-transform: uppercase;">Правила площадки</h2>
+                    
+                    <div style="overflow-y: auto; padding-right: 15px; margin-bottom: 20px; color: #353F37; font-size: 16px; line-height: 1.6;">
+                        <p style="margin-bottom: 15px;"><strong>1. Общие положения</strong><br>AvaBid является площадкой для продажи и покупки цифровых активов (арты, 3D-модели, скины). Используя платформу, вы соглашаетесь с данными правилами.</p>
+                        <p style="margin-bottom: 15px;"><strong>2. Права и обязанности авторов</strong><br>Выставляя лот, вы подтверждаете, что являетесь автором работы или обладаете правами на её продажу. Запрещено выставлять чужие работы, а также контент, созданный с помощью нейросетей, если это не указано в описании.</p>
+                        <p style="margin-bottom: 15px;"><strong>3. Права и обязанности покупателей</strong><br>Совершая ставку или покупку, убедитесь в наличии достаточных средств на балансе. Покупатель обязуется не распространять купленный эксклюзивный ассет без согласия автора.</p>
+                        <p style="margin-bottom: 15px;"><strong>4. Безопасность сделок</strong><br>Все транзакции проходят через систему гаранта. Средства блокируются на счету покупателя и переводятся автору только после подтверждения получения файлов и их соответствия описанию.</p>
+                        <p style="margin-bottom: 15px;"><strong>5. Запрещенный контент</strong><br>К продаже запрещены материалы, нарушающие законодательство РФ, содержащие экстремизм, порнографию или призывы к насилию.</p>
+                        <p style="margin-bottom: 15px;"><strong>6. Разрешение споров</strong><br>В случае возникновения спорных ситуаций (несоответствие файлов описанию, неоплата), вы можете обратиться в службу поддержки. Администрация оставляет за собой право блокировать аккаунты нарушителей.</p>
+                    </div>
+
+                    <!-- Кнопка "Назад" внизу окна -->
+                    <button id="back-to-about-btn" style="width: 100%; padding: 15px; background: #5F6E63; color: #fff; border: none; border-radius: 10px; font-family: 'Alegreya Sans SC'; font-size: 16px; font-weight: bold; cursor: pointer; text-transform: uppercase;">Всё ясно!</button>
+                </div>
+            </div>
+
         </main>
     </div>
+
+    <script src="../notifications.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // --- ЛОГИКА ДЛЯ ОКНА "ВОПРОСЫ И ПРЕДЛОЖЕНИЯ" ---
+            const supportModal = document.getElementById('support-modal');
+            const openSupportBtn = document.getElementById('open-support-modal');
+            const closeSupportBtn = document.getElementById('close-support-modal');
+            const sendSupportBtn = document.getElementById('send-support-btn');
+            const supportStatus = document.getElementById('support-status');
+
+            openSupportBtn.addEventListener('click', () => {
+                supportModal.style.display = 'flex';
+                supportStatus.style.display = 'none';
+            });
+
+            closeSupportBtn.addEventListener('click', () => supportModal.style.display = 'none');
+            supportModal.addEventListener('click', (e) => { if (e.target === supportModal) supportModal.style.display = 'none'; });
+
+            sendSupportBtn.addEventListener('click', async () => {
+                const email = document.getElementById('support-email').value.trim();
+                const content = document.getElementById('support-content').value.trim();
+
+                if (!email || !content) {
+                    supportStatus.textContent = 'Заполните все поля!';
+                    supportStatus.style.color = '#c0392b';
+                    supportStatus.style.display = 'block';
+                    return;
+                }
+
+                sendSupportBtn.disabled = true;
+                sendSupportBtn.textContent = 'Отправка...';
+
+                try {
+                    const res = await fetch('/api/support', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email, content })
+                    });
+
+                    if (res.ok) {
+                        supportStatus.textContent = 'Сообщение успешно отправлено!';
+                        supportStatus.style.color = '#5F6E63';
+                        supportStatus.style.display = 'block';
+                        document.getElementById('support-email').value = '';
+                        document.getElementById('support-content').value = '';
+                        setTimeout(() => { supportModal.style.display = 'none'; }, 2500);
+                    } else { throw new Error('Ошибка сервера'); }
+                } catch (e) {
+                    supportStatus.textContent = 'Ошибка при отправке.';
+                    supportStatus.style.color = '#c0392b';
+                    supportStatus.style.display = 'block';
+                } finally {
+                    sendSupportBtn.disabled = false;
+                    sendSupportBtn.textContent = 'Отправить';
+                }
+            });
+
+            // --- ЛОГИКА ДЛЯ ОКНА "ПОДДЕРЖКА" ---
+            const helpModal = document.getElementById('help-modal');
+            const openHelpBtn = document.getElementById('open-help-modal');
+            const closeHelpBtn = document.getElementById('close-help-modal');
+            const sendHelpBtn = document.getElementById('send-help-btn');
+            const helpStatus = document.getElementById('help-status');
+
+            openHelpBtn.addEventListener('click', () => {
+                helpModal.style.display = 'flex';
+                helpStatus.style.display = 'none';
+            });
+
+            closeHelpBtn.addEventListener('click', () => helpModal.style.display = 'none');
+            helpModal.addEventListener('click', (e) => { if (e.target === helpModal) helpModal.style.display = 'none'; });
+
+            sendHelpBtn.addEventListener('click', async () => {
+                const email = document.getElementById('help-email').value.trim();
+                const content = document.getElementById('help-content').value.trim();
+
+                if (!email || !content) {
+                    helpStatus.textContent = 'Заполните все поля!';
+                    helpStatus.style.color = '#c0392b';
+                    helpStatus.style.display = 'block';
+                    return;
+                }
+
+                sendHelpBtn.disabled = true;
+                sendHelpBtn.textContent = 'Отправка...';
+
+                try {
+                    const res = await fetch('/api/support', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email, content })
+                    });
+
+                    if (res.ok) {
+                        helpStatus.textContent = 'Обращение в поддержку отправлено!';
+                        helpStatus.style.color = '#5F6E63';
+                        helpStatus.style.display = 'block';
+                        document.getElementById('help-email').value = '';
+                        document.getElementById('help-content').value = '';
+                        setTimeout(() => { helpModal.style.display = 'none'; }, 2500);
+                    } else { throw new Error('Ошибка сервера'); }
+                } catch (e) {
+                    helpStatus.textContent = 'Ошибка при отправке.';
+                    helpStatus.style.color = '#c0392b';
+                    helpStatus.style.display = 'block';
+                } finally {
+                    sendHelpBtn.disabled = false;
+                    sendHelpBtn.textContent = 'Отправить';
+                }
+            });
+
+            // --- ЛОГИКА ДЛЯ ОКНА "ПРАВИЛА" ---
+            const rulesModal = document.getElementById('rules-modal');
+            const openRulesBtn = document.getElementById('open-rules-modal');
+            const closeRulesBtn = document.getElementById('close-rules-modal');
+            const backToAboutBtn = document.getElementById('back-to-about-btn');
+
+            openRulesBtn.addEventListener('click', () => {
+                rulesModal.style.display = 'flex';
+            });
+
+            closeRulesBtn.addEventListener('click', () => rulesModal.style.display = 'none');
+            backToAboutBtn.addEventListener('click', () => rulesModal.style.display = 'none');
+            rulesModal.addEventListener('click', (e) => { if (e.target === rulesModal) rulesModal.style.display = 'none'; });
+        });
+    </script>
+    <script src="../theme.js"></script>
 </body>
 </html>

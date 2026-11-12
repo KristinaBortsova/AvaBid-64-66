@@ -15,7 +15,7 @@
     <div class="app-container">
         <aside class="sidebar">
             <div class="sidebar-logo">
-                <img src="https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/1.jpg" alt="AvaBid Logo">
+                <img src="https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/1.png" alt="AvaBid Logo">
             </div>
 
             <nav class="sidebar-nav">
@@ -75,12 +75,33 @@
                     <div class="category-label">Арты</div>
                 </a>
 
-                <a href="category-games.html" class="category-card">
-                    <img src="https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/image%209.png" alt="Игры">
-                    <div class="category-label">Игры</div>
+                <a href="#" id="games-category-link" class="category-card">
+                      <img src="https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/image%209.png" alt="Игры">
+                      <div class="category-label">Игры</div>
                 </a>
             </div>
         </main>
     </div>
+<script>
+    document.addEventListener('DOMContentLoaded', async () => {
+        try {
+            const res = await fetch('/api/categories');
+            const categories = await res.json();
+            
+            // Ищем категорию "Игры" (у которой нет parentId)
+            const gamesCat = categories.find(c => c.name === 'Игры' && !c.parentId);
+            
+            if (gamesCat) {
+                const link = document.getElementById('games-category-link');
+                // Ведем сразу на страницу со списком лотов
+                link.href = `category-lots.html?categoryId=${gamesCat.id}&name=Игры`;
+            }
+        } catch(e) { 
+            console.error('Ошибка загрузки категорий', e); 
+        }
+    });
+</script>
+<script src="../notifications.js"></script>
+<script src="../theme.js"></script>
 </body>
 </html>

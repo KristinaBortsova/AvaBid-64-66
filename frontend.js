@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:3000/api';
+const API_URL = '/api';
 
 async function loadLotsOnHomePage() {
   const lotsGrid = document.querySelector('.lots-grid');
@@ -68,11 +68,40 @@ async function loadLotDetails() {
     const lotImage = document.getElementById('lot-image');
     if (lotImage) lotImage.src = lot.image || 'https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/1.jpg';
 
+    const isExpired = lot.endTime && new Date(lot.endTime) < new Date();
+    
+    // 1. Меняем текст текущей ставки
     const bidInfo = document.querySelector('.lot-bid-info');
-    if (bidInfo) bidInfo.textContent = `ТЕКУЩАЯ СТАВКА: ${lot.currentPrice} ₽`;
+    if (bidInfo) {
+      bidInfo.textContent = isExpired ? `АУКЦИОН ЗАВЕРШЕН. ПРОДАН ЗА: ${lot.currentPrice} ₽` : `ТЕКУЩАЯ СТАВКА: ${lot.currentPrice} ₽`;
+    }
 
-    const authorSpan = document.querySelector('.lot-author span:last-child');
-    if (authorSpan) authorSpan.textContent = lot.author;
+    // 2. Блокируем кнопку "Сделать ставку"
+    const bidBtn = document.getElementById('make-bid-btn');
+    if (bidBtn && isExpired) {
+      bidBtn.disabled = true;
+      bidBtn.textContent = 'АУКЦИОН ЗАВЕРШЕН';
+      bidBtn.style.opacity = '0.5';
+      bidBtn.style.cursor = 'not-allowed';
+    }
+
+    // 3. СКРЫВАЕМ КНОПКУ "КУПИТЬ СЕЙЧАС"
+    const buyBtn = document.getElementById('buy-now-btn');
+    if (buyBtn && isExpired) {
+        buyBtn.style.display = 'none';
+    }
+
+    // 4. Ссылка на автора и его аватарка
+    const authorLink = document.getElementById('author-link');
+    if (authorLink) {
+      authorLink.textContent = lot.author;
+      authorLink.href = `user-profile.html?id=${lot.authorId}`;
+    }
+    
+    const authorAvatarImg = document.querySelector('.author-avatar img');
+    if (authorAvatarImg) {
+      authorAvatarImg.src = lot.authorAvatar || 'https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/1.jpg';
+    }
 
     const descDiv = document.querySelector('.lot-description');
     if (descDiv) descDiv.innerHTML = `<span>ОПИСАНИЕ:</span> ${lot.description || 'Без описания'}`;
@@ -83,7 +112,7 @@ async function loadLotDetails() {
     if (bidsList && lot.bids.length > 0) {
       bidsList.innerHTML = lot.bids.map((bid) => `
         <div class="bid-item">
-          <div class="bid-avatar"><img src="https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/1.jpg" alt="Avatar"></div>
+          <div class="bid-avatar"><img src="${bid.userAvatar || 'https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/1.jpg'}" alt="Avatar"></div>
           <span class="bid-name">${bid.userName}:</span>
           <span class="bid-amount">${bid.price}₽</span>
         </div>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AvaBid - Профиль пользователя</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="icon" type="image/png" href="https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/2.png">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="sidebar-logo"><img src="https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/1.png" alt="AvaBid Logo"></div>
+            <nav class="sidebar-nav">
+                <a href="../index.html" class="nav-item">Главная</a>
+                <a href="profile.html" class="nav-item">Мой профиль</a>
+                <a href="categories.html" class="nav-item">Категории</a>
+                <a href="about.html" class="nav-item">О нас</a>
+            </nav>
+            <div class="sidebar-footer"><p>Талант<br>Вдохновляет Мир</p><img src="https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/2.png" alt="Logo"></div>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-header">
+                <h1>Профиль пользователя</h1>
+                <button class="bell-btn">
+                    <svg width="76" height="71" viewBox="0 0 76 71" fill="none" xmlns="http://www.w3.org/2000/svg">
+                     <path d="M38 3C57.5255 3 73 17.7398 73 35.5C73 53.2602 57.5255 68 38 68C18.4745 68 3 53.2602 3 35.5C3 17.7398 18.4745 3 38 3Z" fill="#E8EFE5" stroke="#839A88" stroke-width="6"/>
+                     <path d="M44.5392 50.7578C44.5392 52.4921 43.8502 54.1554 42.6239 55.3817C41.3976 56.608 39.7344 57.2969 38.0001 57.2969C36.2658 57.2969 34.6026 56.608 33.3763 55.3817C32.1499 54.1554 31.461 52.4921 31.461 50.7578M39.5716 20.2487L36.3762 20.2421C29.0873 20.2247 22.7597 26.1469 22.7095 33.3203V41.5813C22.7095 43.3033 22.4916 44.9838 21.5521 46.4159L20.9265 47.3706C19.974 48.8179 20.9985 50.7578 22.7095 50.7578H53.2906C55.0017 50.7578 56.024 48.8179 55.0736 47.3706L54.448 46.4159C53.5108 44.9838 53.2906 43.3011 53.2906 41.5792V33.3225C53.2034 26.1469 46.8605 20.2661 39.5716 20.2487Z" stroke="#839A88" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                     <path d="M38.0001 13.7031C39.1563 13.7031 40.2651 14.1624 41.0827 14.9799C41.9002 15.7974 42.3595 16.9063 42.3595 18.0625V20.2421H33.6407V18.0625C33.6407 16.9063 34.1 15.7974 34.9176 14.9799C35.7351 14.1624 36.844 13.7031 38.0001 13.7031Z" stroke="#839A88" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+                     </svg>
+                </button>
+            </header>
+            
+            <div class="profile-header-card">
+                <div class="profile-info">
+                    <!-- ЗАМЕНИЛИ SVG НА IMG -->
+                    <div class="avatar-placeholder" style="overflow: hidden; background-color: transparent; border: 2px solid #5F6E63;">
+                        <img id="public-avatar" src="https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/2.png" style="width: 100%; height: 100%; object-fit: cover;" alt="Avatar">
+                    </div>
+                    <div class="profile-text">
+                        <h2 id="public-name">Загрузка...</h2>
+                        <p id="public-role">...</p>
+                        <p id="public-date" style="font-size: 14px; margin-top: 5px;">Дата регистрации: ...</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="profile-content" style="margin-top: 20px;">
+                <h2>Лоты пользователя:</h2>
+                <div id="public-lots-list" style="display: flex; flex-direction: column; gap: 15px; margin-top: 20px;"></div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const userId = urlParams.get('id');
+            if (!userId) { window.location.href = '../index.html'; return; }
+
+            try {
+                const res = await fetch(`/api/users/${userId}`);
+                const user = await res.json();
+
+                document.getElementById('public-name').textContent = user.name;
+                document.getElementById('public-role').textContent = user.role;
+                
+                // УСТАНАВЛИВАЕМ АВАТАРКУ
+                document.getElementById('public-avatar').src = user.avatarUrl || 'https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/2.png';
+                
+                const date = new Date(user.createdAt).toLocaleDateString('ru-RU');
+                document.getElementById('public-date').textContent = `Дата регистрации: ${date}`;
+
+                const lotsList = document.getElementById('public-lots-list');
+                if (user.lots.length > 0) {
+                    lotsList.innerHTML = user.lots.map(lot => `
+                        <a href="lot.html?id=${lot.id}" style="display: flex; align-items: center; gap: 15px; padding: 15px; background: #F5F7F5; border-radius: 15px; text-decoration: none;">
+                            <img src="${lot.image || 'https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/1.png'}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 10px;">
+                            <div>
+                                <div style="color: #5F6E63; font-weight: 700; text-transform: uppercase;">${lot.name}</div>
+                                <div style="color: #7A8F80; font-size: 14px;">${lot.category} | ${lot.currentPrice} ₽</div>
+                            </div>
+                        </a>
+                    `).join('');
+                } else {
+                    lotsList.innerHTML = '<p>У этого пользователя пока нет лотов.</p>';
+                }
+            } catch (e) { console.error(e); }
+        });
+    </script>
+    <script src="../notifications.js"></script>
+    <script src="../theme.js"></script>
+</body>
+</html>
