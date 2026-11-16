@@ -85,7 +85,7 @@ async function loadLotDetails() {
       bidBtn.style.cursor = 'not-allowed';
     }
 
-    // 3. СКРЫВАЕМ КНОПКУ "КУПИТЬ СЕЙЧАС"
+    // 3. Скрываем "КУПИТЬ СЕЙЧАС"
     const buyBtn = document.getElementById('buy-now-btn');
     if (buyBtn && isExpired) {
         buyBtn.style.display = 'none';

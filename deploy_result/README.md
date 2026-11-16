@@ -8,7 +8,7 @@
 |-------------|-------------------|-----------------|-------------------|
 | frontend    | HTML/JS/CSS       | 80              | Nginx             |
 | backend     | Node.js (Express) | 3000            | node src/index.js |
-| nginx       | Nginx             | 80, 443         |        -          |
+| nginx       | Nginx             | 443             |        -          |
 | База данных | Supabase          |       -         |        -          |
 
 Переменные окружения и секреты
