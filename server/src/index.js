@@ -1,25 +1,25 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import chatRoutes from './routes/chats.js';
 import authRoutes from './routes/auth.js';
 import lotRoutes from './routes/lots.js';
 import userRoutes from './routes/users.js';
 import categoryRoutes from './routes/categories.js';
-import supportRoutes from './routes/support.js'; 
-import notificationRoutes from './routes/notifications.js'; 
+import supportRoutes from './routes/support.js';
+import notificationRoutes from './routes/notifications.js';
+import disputeRoutes from './routes/disputes.js';
 
 dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors());
-app.use(express.json());
-
+app.use(express.json({ limit: '12mb' }));
 app.use((req, res, next) => {
   console.log(`${req.method} ${req.url}`);
   next();
 });
-
 app.use('/api', (req, res, next) => {
   res.set('X-Robots-Tag', 'noindex, nofollow');
   next();
@@ -29,13 +29,16 @@ app.use('/api/auth', authRoutes);
 app.use('/api/lots', lotRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/categories', categoryRoutes);
-app.use('/api/support', supportRoutes);              
-app.use('/api/notifications', notificationRoutes); 
+app.use('/api/support', supportRoutes);
+app.use('/api/notifications', notificationRoutes);
+app.use('/api/chats', chatRoutes);
+app.use('/api/disputes', disputeRoutes);
+
 
 app.get('/', (req, res) => {
   res.json({ message: 'AvaBid API работает!' });
 });
 
 app.listen(PORT, () => {
-  console.log(`Сервер запущен на http://localhost:${PORT}`);
+  console.log(`Сервер запущен на порту ${PORT}`);
 });

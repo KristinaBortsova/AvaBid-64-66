@@ -6,6 +6,12 @@ const prisma = new PrismaClient();
 async function main() {
   console.log('Очищаем базу...');
 
+  // Удаляем новые таблицы(СПОРЫ И ЧАТЫ)
+  await prisma.ticket.deleteMany();       // Жалобы
+  await prisma.message.deleteMany();      // Сообщения
+  await prisma.chat.deleteMany();         // Чаты
+  await prisma.walletHistory.deleteMany();
+
   await prisma.transaction.deleteMany();
   await prisma.bid.deleteMany();
   await prisma.lotImage.deleteMany();
@@ -33,7 +39,7 @@ async function main() {
   const user1 = await prisma.user.create({
     data: {
       name: 'QUEXTY',
-      email: 'kristinabortsova@yandex.ru',
+      email: 'kristinab0rts0va@yandex.ru',
       password,
       phone: '+79991112233',
       balance: 15000,
@@ -52,7 +58,7 @@ async function main() {
     },
   });
 
-  await prisma.user.create({
+  const user3 = await prisma.user.create({
     data: {
       name: 'VIVA!',
       email: 'viva@bk.ru',
@@ -139,7 +145,7 @@ async function main() {
       description: 'КАТЕГОРИИ: АРТЫ, ЖИВОТНЫЕ',
       startPrice: 1500,
       stepMin: 200,
-      userId: user4.id,
+      userId: user2.id,
       categoryId: subArtAnimals.id,
       statusId: statusActive.id,
       endTime: hoursFromNow(100),
@@ -153,7 +159,7 @@ async function main() {
       description: 'КАТЕГОРИИ: АРТЫ, УСН',
       startPrice: 200,
       stepMin: 50,
-      userId: user1.id,
+      userId: user2.id,
       categoryId: subArtUSN.id,
       statusId: statusActive.id,
       endTime: hoursFromNow(90),
@@ -181,7 +187,7 @@ async function main() {
       description: 'КАТЕГОРИИ: АРТЫ, ФЭНТЕЗИ',
       startPrice: 1200,
       stepMin: 100,
-      userId: user1.id,
+      userId: user2.id,
       categoryId: subArtFantasy.id,
       statusId: statusActive.id,
       endTime: hoursFromNow(30),
@@ -204,29 +210,6 @@ async function main() {
   });
 
   console.log('6 лотов созданы');
-
-  // 6. Ставки
-  const bids = [
-    { lotId: lot1.id, userId: user2.id, price: 5850, hours: 8 }, 
-    { lotId: lot2.id, userId: user2.id, price: 3200, hours: 12 }, 
-    { lotId: lot3.id, userId: user2.id, price: 427, hours: 6 }, 
-    { lotId: lot4.id, userId: user2.id, price: 9999, hours: 1 }, 
-    { lotId: lot5.id, userId: user2.id, price: 1709, hours: 2 }, 
-    { lotId: lot6.id, userId: user2.id, price: 1500, hours: 4 }, 
-  ];
-
-  for (const b of bids) {
-    await prisma.bid.create({
-      data: {
-        currentPrice: b.price,
-        lotId: b.lotId,
-        userId: b.userId,
-        endTime: hoursFromNow(b.hours),
-      },
-    });
-  }
-
-  console.log('Ставки созданы');
 }
 
 main()

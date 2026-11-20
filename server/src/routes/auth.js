@@ -83,6 +83,22 @@ router.post('/login', async (req, res) => {
       return res.status(401).json({ error: 'Неверный email или пароль' });
     }
 
+    // === ПРОВЕРКА НА БАН ===
+    if (user.isBanned) {
+      // Если бан временный и уже истек — снимаем его автоматически
+      if (user.banUntil && new Date(user.banUntil) < new Date()) {
+        await prisma.user.update({
+          where: { id: user.id },
+          data: { isBanned: false, banReason: null, banUntil: null }
+        });
+      } else {
+        // Если бан всё еще активен — не пускаем
+        return res.status(403).json({ 
+          error: `Ваш аккаунт заблокирован. Причина: ${user.banReason || 'Нарушение правил'}.` 
+        });
+      }
+    }
+
     const token = jwt.sign(
       { userId: user.id, roleId: user.roleId },
       JWT_SECRET,

@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light dark">
+    <title>AvaBid — Чат сделки</title>
+    <link rel="icon" type="image/png" href="https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/2.png">
+    <link rel="stylesheet" href="../style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <main class="main-content">
+            <header class="top-header">
+                <div class="flex items-center gap-4">
+                    <h1 id="chat-title">Чат сделки</h1>
+                </div>
+                
+                <div class="flex items-center gap-3">
+                     <button class="close-chat-btn" type="button" aria-label="Закрыть чат" onclick="window.location.href='profile.html'">
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                          <line x1="18" y1="6" x2="6" y2="18"></line>
+                          <line x1="6" y1="6" x2="18" y2="18"></line>
+                          </svg>
+                    </button>
+                </div>
+            </header>
+
+            <section class="chat-container" aria-label="Переписка по сделке">
+                <div class="chat-messages" id="messages-list" aria-live="polite">
+                    <p class="chat-empty">Загружаем переписку…</p>
+                </div>
+
+                <p class="chat-error" id="chat-error" role="alert"></p>
+                <p class="chat-status" id="chat-status" aria-live="polite"></p>
+
+                <div class="chat-input-area">
+                    <input type="text" id="message-input" maxlength="4000" placeholder="Написать сообщение…" autocomplete="off" aria-label="Текст сообщения">
+                    <button type="button" id="send-button" onclick="sendMessage()" aria-label="Отправить сообщение" class="recovery-btn" style="padding: 10px 20px;">Отправить</button>
+                </div>
+
+                <div class="chat-actions" id="action-buttons"></div>
+                <input id="chat-file-input" type="file" accept=".png,.jpg,.jpeg,.webp,.gif,.pdf,.zip,.rar,.7z,.txt,.psd,.clip,.kra,.blend,.fbx,.obj,.stl,.glb,.gltf,.mp4,.mp3,.wav,.doc,.docx,.xls,.xlsx">
+            </section>
+        </main>
+    </div>
+
+    <!-- Модальное окно поддержки -->
+    <div id="support-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.6); z-index: 9999; justify-content: center; align-items: center;">
+        <div class="support-modal-content">
+            
+            <!-- Кнопка закрытия окна -->
+            <button type="button" style="position: absolute; top: 15px; right: 15px; background: none; border: none; cursor: pointer; color: #666;" onclick="closeSupportModal()">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+            </button>
+
+            <h2 class="support-title">Обращение в поддержку</h2>
+            <p class="support-desc">Опишите проблему. Администратор подключится к вашему чату для решения вопроса.</p>
+            
+            <textarea id="support-reason" class="support-textarea" rows="4" placeholder="Например: Продавец не выходит на связь после оплаты..."></textarea>
+            
+            <button type="button" onclick="submitSupportRequest()" class="support-submit-btn">
+                Отправить обращение
+            </button>
+        </div>
+    </div>
+
+    <script src="../theme.js"></script>
+    <script src="../auth.js"></script>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const chatId = urlParams.get('id');
+        let currentUser = null;
+        let chatData = null;
+        let refreshTimer = null;
+        let loadingChat = false;
+        let sendingMessage = false;
+        let uploadingFile = false;
+
+        const messagesList = document.getElementById('messages-list');
+        const messageInput = document.getElementById('message-input');
+        const sendButton = document.getElementById('send-button');
+        const fileInput = document.getElementById('chat-file-input');
+
+        function escapeHtml(value) {
+            return String(value ?? '').replace(/[&<>"']/g, character => ({
+                '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+            })[character]);
+        }
+
+        function showError(message) {
+            const error = document.getElementById('chat-error');
+            error.textContent = message || '';
+            error.style.display = message ? 'block' : 'none';
+        }
+
+        function showStatus(message) {
+            document.getElementById('chat-status').textContent = message || '';
+        }
+
+        async function apiRequest(url, options = {}) {
+            const headers = new Headers(options.headers || {});
+            const token = getToken();
+            if (token) headers.set('Authorization', `Bearer ${token}`);
+            if (options.body && typeof options.body === 'string' && !headers.has('Content-Type')) {
+                headers.set('Content-Type', 'application/json');
+            }
+
+            const response = await fetch(url, { ...options, headers });
+            const data = await response.json().catch(() => ({}));
+            if (!response.ok) throw new Error(data.error || `Ошибка сервера (${response.status})`);
+            return data;
+        }
+
+        function getSafeFileUrl(value) {
+            if (typeof value !== 'string') return null;
+            if (value.startsWith('/api/chats/files/')) return value;
+            try {
+                const parsed = new URL(value, window.location.origin);
+                if (parsed.protocol === 'https:' || parsed.protocol === 'http:') return parsed.href;
+            } catch (_) {}
+            return null;
+        }
+
+        function renderMessages(messages) {
+            if (!Array.isArray(messages) || messages.length === 0) {
+                messagesList.innerHTML = '<p class="chat-empty">Пока нет сообщений. Напишите первое сообщение или отправьте файл.</p>';
+                return;
+            }
+
+            messagesList.innerHTML = messages.map(message => {
+                const mine = Number(message.senderId) === Number(currentUser.id);
+                const isAdminMsg = message.isAdmin === true;
+                
+                const msgClass = isAdminMsg ? 'admin-msg' : (mine ? 'mine' : 'theirs');
+                const sender = escapeHtml(message.sender?.name || 'Пользователь');
+                const senderName = isAdminMsg ? `🛡️ ${sender} (Поддержка)` : sender;
+
+                const text = message.fileUrl ? '' : escapeHtml(message.text || '');
+                const safeUrl = getSafeFileUrl(message.fileUrl);
+                let fileMarkup = '';
+
+                if (safeUrl && safeUrl.startsWith('/api/chats/files/')) {
+                    const fileName = escapeHtml(message.text || 'Скачать файл');
+                    fileMarkup = `<div><a class="msg-file-link" href="#" onclick="downloadChatFile(event, '${safeUrl}')">📎 ${fileName}</a></div>`;
+                } else if (safeUrl) {
+                    fileMarkup = `<div><a class="msg-file-link" href="${escapeHtml(safeUrl)}" target="_blank" rel="noopener noreferrer">📎 Открыть файл</a></div>`;
+                }
+
+                const date = message.createdAt ? new Date(message.createdAt) : null;
+                const time = date && !Number.isNaN(date.getTime())
+                    ? date.toLocaleString('ru-RU', { day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit' })
+                    : '';
+
+                return `
+                    <article class="msg ${msgClass}">
+                        <div class="msg-sender">${senderName}</div>
+                        ${text ? `<div class="msg-text">${text}</div>` : ''}
+                        ${fileMarkup}
+                        ${time ? `<div class="msg-time">${escapeHtml(time)}</div>` : ''}
+                    </article>
+                `;
+            }).join('');
+
+            messagesList.scrollTop = messagesList.scrollHeight;
+        }
+
+        function renderActions() {
+            const actions = document.getElementById('action-buttons');
+            const isAdmin = chatData && chatData.isAdmin === true;
+            if (isAdmin) {
+                // Если сделка уже закрыта, админу тоже показываем статус, чтобы он не нажимал кнопки в пустоту
+                if (!chatData || chatData.status !== 'ACTIVE') {
+                    const statusText = chatData?.status === 'COMPLETED' ? 'Сделка успешно завершена' : 'Сделка отменена (деньги возвращены)';
+                    actions.innerHTML = `<p style="color:#5F6E63; width:100%; margin:0; font-weight:bold;">Статус: ${statusText}</p>`;
+                    messageInput.disabled = true;
+                    sendButton.disabled = true;
+                    return;
+                }
+
+                actions.innerHTML = `
+                    <p style="color:#5F6E63; width:100%; margin:0; font-weight:bold;">Вы вошли как Администратор (Арбитраж)</p>
+                    <button type="button" onclick="attachFile()" class="action-btn">Прикрепить файл</button>
+                    <button type="button" onclick="resolveDispute('complete')" class="action-btn" style="background:#27ae60;color:#fff;">Завершить (Продавцу)</button>
+                    <button type="button" onclick="resolveDispute('cancel')" class="action-btn" style="background:#c0392b;color:#fff;">Отменить (Вернуть деньги)</button>
+                `;
+                messageInput.disabled = false;
+                sendButton.disabled = false;
+                return;
+            }
+
+            // ЛОГИКА ДЛЯ ОБЫЧНЫХ ПОЛЬЗОВАТЕЛЕЙ
+            if (!chatData || chatData.status !== 'ACTIVE') {
+                const statusText = chatData?.status === 'COMPLETED' ? 'Сделка успешно завершена' : 'Сделка отменена';
+                actions.innerHTML = `<p style="color:#c0392b; width:100%; margin:0;">${statusText}</p>`;
+                messageInput.disabled = true;
+                sendButton.disabled = true;
+                return;
+            }
+
+            messageInput.disabled = false;
+            sendButton.disabled = false;
+
+            if (Number(currentUser.id) === Number(chatData.sellerId)) {
+                actions.innerHTML = `
+                    <button type="button" onclick="attachFile()" class="action-btn">Прикрепить файл</button>
+                    <button type="button" onclick="cancelDeal()" class="action-btn" style="background:#c0392b;color:#fff;">Отменить сделку</button>
+                `;
+                return;
+            }
+
+            if (Number(currentUser.id) === Number(chatData.buyerId)) {
+                const hasFiles = (chatData.messages || []).some(message =>
+                    Number(message.senderId) === Number(chatData.sellerId) && Boolean(message.fileUrl)
+                );
+                actions.innerHTML = `
+                    ${hasFiles
+                        ? '<button type="button" onclick="confirmDeal()" class="action-btn" style="background:#27ae60;color:#fff;">Подтвердить сделку</button>'
+                        : '<p style="color:#7A8F80; margin:0;">Ожидайте файлы от продавца…</p>'}
+                    <button type="button" onclick="cancelDeal()" class="action-btn" style="background:#c0392b;color:#fff;">Отменить сделку</button>
+                    <button type="button" onclick="openSupportModal()" class="action-btn">Поддержка</button>
+                `;
+            }
+        }
+
+        async function loadChat() {
+            if (loadingChat) return;
+            loadingChat = true;
+            try {
+                const data = await apiRequest(`/api/chats/${encodeURIComponent(chatId)}`);
+                if (!data || !data.lot) throw new Error('Сервер вернул неполные данные чата');
+                chatData = data;
+                document.getElementById('chat-title').textContent = `Чат: ${data.lot.name || 'Сделка'}`;
+                renderMessages(data.messages || []);
+                renderActions();
+                showError('');
+            } catch (error) {
+                console.error('Ошибка загрузки чата:', error);
+                showError(error.message || 'Не удалось загрузить чат');
+                if (!chatData) messagesList.innerHTML = '<p class="chat-empty">Не удалось загрузить переписку. Обновите страницу.</p>';
+            } finally {
+                loadingChat = false;
+            }
+        }
+
+        async function sendMessage() {
+            if (sendingMessage) return;
+            const text = messageInput.value.trim();
+            if (!text) {
+                showError('Сначала напишите сообщение');
+                messageInput.focus();
+                return;
+            }
+
+            sendingMessage = true;
+            sendButton.disabled = true;
+            showError('');
+            showStatus('Отправляем сообщение…');
+            try {
+                await apiRequest(`/api/chats/${encodeURIComponent(chatId)}/messages`, {
+                    method: 'POST',
+                    body: JSON.stringify({ text })
+                });
+                messageInput.value = '';
+                showStatus('');
+                await loadChat();
+            } catch (error) {
+                showError(error.message || 'Не удалось отправить сообщение');
+                showStatus('');
+            } finally {
+                sendingMessage = false;
+                sendButton.disabled = false;
+                messageInput.focus();
+            }
+        }
+
+        function readFileAsDataUrl(file) {
+            return new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => resolve(reader.result);
+                reader.onerror = () => reject(new Error('Не удалось прочитать файл на устройстве'));
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function attachFile() {
+            if (!uploadingFile) fileInput.click();
+        }
+
+        async function uploadChatFile(file) {
+            if (!file || uploadingFile) return;
+            const maxSize = 8 * 1024 * 1024;
+            if (file.size > maxSize) {
+                showError('Файл слишком большой. Максимальный размер — 8 МБ');
+                return;
+            }
+
+            uploadingFile = true;
+            showError('');
+            showStatus(`Загружаем «${file.name}»…`);
+            try {
+                const fileData = await readFileAsDataUrl(file);
+                await apiRequest(`/api/chats/${encodeURIComponent(chatId)}/files`, {
+                    method: 'POST',
+                    body: JSON.stringify({ fileName: file.name, fileData })
+                });
+                showStatus('Файл прикреплён');
+                await loadChat();
+            } catch (error) {
+                showError(error.message || 'Не удалось прикрепить файл');
+                showStatus('');
+            } finally {
+                uploadingFile = false;
+                fileInput.value = '';
+            }
+        }
+
+        async function downloadChatFile(event, fileUrl) {
+            event.preventDefault();
+            try {
+                const response = await fetch(fileUrl, {
+                    headers: { 'Authorization': `Bearer ${getToken()}` }
+                });
+                if (!response.ok) {
+                    const data = await response.json().catch(() => ({}));
+                    throw new Error(data.error || 'Не удалось скачать файл');
+                }
+                const blob = await response.blob();
+                const objectUrl = URL.createObjectURL(blob);
+                const anchor = document.createElement('a');
+                anchor.href = objectUrl;
+                anchor.download = 'AvaBid-файл';
+                document.body.appendChild(anchor);
+                anchor.click();
+                anchor.remove();
+                URL.revokeObjectURL(objectUrl);
+            } catch (error) {
+                showError(error.message || 'Не удалось скачать файл');
+            }
+        }
+
+        async function confirmDeal() {
+            if (!confirm('Подтвердить получение файлов и завершить сделку?')) return;
+            try {
+                const result = await apiRequest(`/api/chats/${encodeURIComponent(chatId)}/confirm`, { method: 'POST' });
+                showStatus(result.message || 'Сделка завершена');
+                await loadChat();
+            } catch (error) { showError(error.message); }
+        }
+
+        async function cancelDeal() {
+            if (!confirm('Вы уверены, что хотите отменить сделку?')) return;
+            try {
+                const result = await apiRequest(`/api/chats/${encodeURIComponent(chatId)}/cancel`, { method: 'POST' });
+                showStatus(result.message || 'Сделка отменена');
+                await loadChat();
+            } catch (error) { showError(error.message); }
+        }
+
+        // --- ЛОГИКА ПОДДЕРЖКИ И АРБИТРАЖА ---
+        function openSupportModal() {
+            document.getElementById('support-modal').style.display = 'flex';
+        }
+
+        function closeSupportModal() {
+            document.getElementById('support-modal').style.display = 'none';
+            document.getElementById('support-reason').value = '';
+        }
+
+        async function submitSupportRequest() {
+            const reason = document.getElementById('support-reason').value.trim();
+            if (!reason) {
+                alert('Пожалуйста, опишите вашу проблему.');
+                return;
+            }
+
+            try {
+                await apiRequest(`/api/disputes/${encodeURIComponent(chatId)}`, {
+                   method: 'POST',
+                   body: JSON.stringify({ reason })
+                });
+                alert('Обращение успешно отправлено! Администратор скоро подключится.');
+                closeSupportModal();
+            } catch (error) {
+                alert(error.message || 'Не удалось отправить обращение');
+            }
+        }
+
+        async function resolveDispute(action) {
+            const isCancel = action === 'cancel';
+            const msg = isCancel 
+                ? 'Вы уверены, что хотите ОТМЕНИТЬ сделку и вернуть деньги покупателю?' 
+                : 'Вы уверены, что хотите ЗАВЕРШИТЬ сделку и перевести деньги продавцу?';
+                
+            if (!confirm(msg)) return;
+            
+            try {
+                await apiRequest(`/api/disputes/${chatId}/resolve`, { 
+                    method: 'POST',
+                    body: JSON.stringify({ action }) 
+                });
+                alert(isCancel ? 'Сделка отменена, деньги возвращены.' : 'Сделка завершена, деньги переведены.');
+                await loadChat();
+            } catch (error) { alert(error.message); }
+        }
+
+        fileInput.addEventListener('change', () => {
+            const file = fileInput.files?.[0];
+            if (file) uploadChatFile(file);
+        });
+        messageInput.addEventListener('keydown', event => {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendMessage();
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            if (!chatId || !isAuthenticated()) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            try {
+                currentUser = await fetchCurrentUser();
+                await loadChat();
+                refreshTimer = window.setInterval(loadChat, 5000);
+            } catch (error) {
+                console.error('Не удалось инициализировать чат:', error);
+                showError(error.message || 'Не удалось открыть чат. Войдите в аккаунт заново.');
+            }
+        });
+
+        window.addEventListener('beforeunload', () => {
+            if (refreshTimer) window.clearInterval(refreshTimer);
+        });
+    </script>
+</body>
+</html>

@@ -15,25 +15,32 @@ model Role {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  name      String
-  email     String   @unique
-  password  String
-  phone     String?
-  balance   Float    @default(0)
-  avatarUrl String?
-  createdAt DateTime @default(now())
-  
-  // Новое поле: включена ли рассылка (по умолчанию выключена)
-  receiveBroadcasts Boolean @default(false) 
+  id            Int             @id @default(autoincrement())
+  name          String
+  email         String          @unique
+  password      String
+  phone         String?
+  balance       Float           @default(0)
+  walletHistory WalletHistory[]
+  avatarUrl     String?
+  chatTickets   Ticket[]
+  createdAt     DateTime        @default(now())
+  buyerChats    Chat[]          @relation("BuyerChats")
+  sellerChats   Chat[]          @relation("SellerChats")
+  messages      Message[]
 
-  roleId    Int
-  role      Role     @relation(fields: [roleId], references: [id])
+  receiveBroadcasts Boolean @default(false)
+  isBanned  Boolean   @default(false)
+  banReason String?
+  banUntil  DateTime?
 
-  lots          Lot[]
-  bids          Bid[]
-  transactions  Transaction[]
-  
+  roleId Int
+  role   Role @relation(fields: [roleId], references: [id])
+
+  lots         Lot[]
+  bids         Bid[]
+  transactions Transaction[]
+
   // Новые связи
   notifications Notification[]
   tickets       SupportTicket[]
@@ -62,6 +69,7 @@ model Lot {
   stepMin     Float
   createdAt   DateTime @default(now())
   endTime     DateTime
+  chat        Chat?
 
   userId     Int
   user       User      @relation(fields: [userId], references: [id])
@@ -69,7 +77,6 @@ model Lot {
   category   Category  @relation(fields: [categoryId], references: [id])
   statusId   Int
   status     StatusLot @relation(fields: [statusId], references: [id])
-
   bids         Bid[]
   images       LotImage[]
   files        LotFile[]
@@ -112,15 +119,15 @@ model StatusTransaction {
 }
 
 model Transaction {
-  id         Int      @id @default(autoincrement())
+  id         Int   @id @default(autoincrement())
   finalPrice Float
 
   userId   Int
-  user     User            @relation(fields: [userId], references: [id])
+  user     User              @relation(fields: [userId], references: [id])
   lotId    Int
-  lot      Lot             @relation(fields: [lotId], references: [id])
+  lot      Lot               @relation(fields: [lotId], references: [id])
   bidId    Int
-  bid      Bid             @relation(fields: [bidId], references: [id])
+  bid      Bid               @relation(fields: [bidId], references: [id])
   statusId Int
   status   StatusTransaction @relation(fields: [statusId], references: [id])
 }
@@ -129,12 +136,12 @@ model SupportTicket {
   id        Int      @id @default(autoincrement())
   email     String
   content   String
-  reply     String?  // Ответ админа
+  reply     String? // Ответ админа
   status    String   @default("OPEN") // OPEN или CLOSED
   createdAt DateTime @default(now())
-  
-  userId    Int?
-  user      User?    @relation(fields: [userId], references: [id])
+
+  userId Int?
+  user   User? @relation(fields: [userId], references: [id])
 }
 
 model Notification {
@@ -143,7 +150,56 @@ model Notification {
   user      User     @relation(fields: [userId], references: [id])
   title     String
   message   String
+  linkUrl   String?
   isRead    Boolean  @default(false)
   type      String   @default("SYSTEM") // SYSTEM, SUPPORT, BROADCAST
   createdAt DateTime @default(now())
+}
+
+model WalletHistory {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  user        User     @relation(fields: [userId], references: [id])
+  amount      Float // Положительное - пополнение, отрицательное - трата
+  type        String // TOPUP, BID, BUY
+  description String?
+  createdAt   DateTime @default(now())
+}
+
+model Chat {
+  id        Int       @id @default(autoincrement())
+  lotId     Int       @unique
+  lot       Lot       @relation(fields: [lotId], references: [id])
+  buyerId   Int
+  buyer     User      @relation("BuyerChats", fields: [buyerId], references: [id])
+  sellerId  Int
+  tickets   Ticket[]
+  seller    User      @relation("SellerChats", fields: [sellerId], references: [id])
+  status    String    @default("ACTIVE") // ACTIVE, COMPLETED, CANCELLED
+  messages  Message[]
+  createdAt DateTime  @default(now())
+}
+
+model Message {
+  id        Int      @id @default(autoincrement())
+  chatId    Int
+  chat      Chat     @relation(fields: [chatId], references: [id])
+  senderId  Int
+  sender    User     @relation(fields: [senderId], references: [id])
+  isAdmin   Boolean  @default(false)
+  text      String?
+  fileUrl   String?
+  createdAt DateTime @default(now())
+}
+
+model Ticket {
+  id        Int      @id @default(autoincrement())
+  chatId    Int
+  userId    Int
+  reason    String
+  status    String   @default("OPEN")
+  createdAt DateTime @default(now())
+
+  chat Chat @relation(fields: [chatId], references: [id])
+  user User @relation(fields: [userId], references: [id])
 }

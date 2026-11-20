@@ -10,12 +10,13 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans+SC:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 </head>
 <body>
     <div class="app-container">
         <aside class="sidebar">
             <div class="sidebar-logo">
-                <img src="https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/1.png" alt="AvaBid Logo">
+                <img src="https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/1.png" alt="AvaBid Logo" width="100" height="50">
             </div>
 
             <nav class="sidebar-nav">
@@ -55,14 +56,14 @@
 
             <div class="sidebar-footer">
                 <p>Талант<br>Вдохновляет Мир</p>
-                <img src="https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/2.png" alt="Small Logo">
+                <img src="https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/2.png" alt="Small Logo" width="50" height="50">
             </div>
         </aside>
 
         <main class="main-content">
             <header class="top-header">
                 <h1 id="page-title">Профиль</h1>
-                <button class="bell-btn" id="notification-bell">
+                <button class="bell-btn" aria-label="Открыть уведомления" id="notification-bell">
                     <svg width="76" height="71" viewBox="0 0 76 71" fill="none" xmlns="http://www.w3.org/2000/svg">
                      <path d="M38 3C57.5255 3 73 17.7398 73 35.5C73 53.2602 57.5255 68 38 68C18.4745 68 3 53.2602 3 35.5C3 17.7398 18.4745 3 38 3Z" fill="#E8EFE5" stroke="#839A88" stroke-width="6"/>
                      <path d="M44.5392 50.7578C44.5392 52.4921 43.8502 54.1554 42.6239 55.3817C41.3976 56.608 39.7344 57.2969 38.0001 57.2969C36.2658 57.2969 34.6026 56.608 33.3763 55.3817C32.1499 54.1554 31.461 52.4921 31.461 50.7578M39.5716 20.2487L36.3762 20.2421C29.0873 20.2247 22.7597 26.1469 22.7095 33.3203V41.5813C22.7095 43.3033 22.4916 44.9838 21.5521 46.4159L20.9265 47.3706C19.974 48.8179 20.9985 50.7578 22.7095 50.7578H53.2906C55.0017 50.7578 56.024 48.8179 55.0736 47.3706L54.448 46.4159C53.5108 44.9838 53.2906 43.3011 53.2906 41.5792V33.3225C53.2034 26.1469 46.8605 20.2661 39.5716 20.2487Z" stroke="#839A88" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -81,9 +82,10 @@
                         <div class="profile-text">
                             <h2 id="profile-name">Загрузка...</h2>
                             <p id="profile-email">...</p>
+                            <p id="profile-balance" style="color: #5F6E63; font-weight: 700; margin-top: 5px;">Баланс: ... ₽</p>
                         </div>
                     </div>
-                    <button class="edit-btn" id="open-edit-profile-btn">
+                    <button class="edit-btn" id="open-edit-profile-btn" aria-label="Редактировать профиль">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
                             <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
@@ -95,10 +97,10 @@
                 <div class="profile-grid">
                     <div class="profile-actions">
                         <a href="create-lot.html" class="action-btn" style="display: block; text-align: left; text-decoration: none; box-sizing: border-box;">Создать лот</a>
-                        <button class="action-btn">Пополнить баланс</button>
+                        <button class="action-btn" id="open-topup-btn">Пополнить баланс</button>
                         <button class="action-btn" id="logout-btn">Выйти из аккаунта</button>
                         <button class="action-btn" id="open-notifications-btn">Уведомления</button>
-                        <button class="action-btn">Платежные данные</button>
+                        <button class="action-btn" id="open-history-btn">История</button>
                         <button class="action-btn" id="settings-btn">Настройки</button>
                     </div>
 
@@ -309,6 +311,42 @@
                     </div>
                 </div>
             </div>
+            <!-- ввод суммы -->
+            <div id="topup-amount-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
+              <div style="background: #fff; border-radius: 20px; padding: 40px; max-width: 400px; width: 90%; position: relative; text-align: center;">
+                 <button id="close-topup-amount" style="position: absolute; top: 15px; right: 15px; width: 35px; height: 35px; border: 2px solid #5F6E63; border-radius: 8px; background: transparent; cursor: pointer; color: #5F6E63;">✕</button>
+                 <h2 style="color: #5F6E63; font-size: 24px; margin-bottom: 20px;">Пополнение баланса</h2>
+                 <p style="color: #7A8F80; font-size: 14px; margin-bottom: 20px;">Введите сумму, на которую хотите пополнить кошелек</p>
+             <div class="input-group" style="margin-bottom: 25px;">
+                 <input type="number" id="topup-amount-input" min="1" placeholder="Например: 1000" style="width: 100%; background: #E8EFE5; border: none; border-radius: 10px; padding: 15px; font-size: 24px; text-align: center; font-family: 'Alegreya Sans SC'; color: #353F37; outline: none; box-sizing: border-box;">
+            </div>
+              <button id="next-to-qr-btn" class="recovery-btn" style="width: 100%;">Далее</button>
+           </div>
+        </div>
+
+         <!-- QR-код -->
+        <div id="topup-qr-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000; justify-content: center; align-items: center;">
+           <div style="background: #fff; border-radius: 20px; padding: 40px; max-width: 400px; width: 90%; position: relative; text-align: center;">
+           <h2 style="color: #5F6E63; font-size: 24px; margin-bottom: 15px;">Оплата по СБП</h2>
+        <p style="color: #7A8F80; font-size: 14px; margin-bottom: 20px;">Отсканируйте QR-код в приложении вашего банка для перевода <strong id="qr-amount-text">0</strong> ₽</p>
+        
+                <!-- Контейнер для реального QR-кода -->
+        <div id="qrcode" style="width: 200px; height: 200px; margin: 0 auto 20px; background: #fff; padding: 10px; border-radius: 15px; display: flex; justify-content: center; align-items: center;"></div>
+        
+        <button id="confirm-topup-btn" class="recovery-btn" style="width: 100%; background-color: #27ae60;">Я оплатил</button>
+        <p style="color: #A6A6A6; font-size: 12px; margin-top: 15px;">Нажимая кнопку, вы подтверждаете перевод</p>
+    </div>
+</div>
+            <!-- история-->
+            <div id="history-view" style="display: none;">
+                <div class="profile-content" style="background: #fff; padding: 30px; border-radius: 20px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 2px solid #E8EFE5; padding-bottom: 15px;">
+                        <h2 style="color: #5F6E63; font-size: 28px; margin: 0;">История операций</h2>
+                        <button id="close-history-btn" class="action-btn" style="padding: 10px 20px; background: #D9D9D9; border-radius: 10px; border: none; cursor: pointer; font-weight: bold; color: #5F6E63;">Назад в профиль</button>
+                    </div>
+                    <div id="history-list" style="display: flex; flex-direction: column; gap: 15px;"></div>
+                </div>
+            </div>
         </main>
     </div>
 
@@ -341,6 +379,7 @@
                 
                 document.getElementById('profile-name').textContent = currentUser.name;
                 document.getElementById('profile-email').textContent = currentUser.email.toUpperCase();
+                                document.getElementById('profile-balance').textContent = `Баланс: ${currentUser.balance} ₽`;
                 document.getElementById('profile-avatar').src = currentUser.avatarUrl || 'https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/2.png';
                 
                 document.getElementById('settings-name').textContent = currentUser.name;
@@ -378,10 +417,10 @@
                         return `
                         <div style="display: flex; align-items: center; justify-content: space-between; background: #F5F7F5; border-radius: 15px; padding: 15px; box-sizing: border-box;">
                             <a href="lot.html?id=${lot.id}" style="display: flex; align-items: center; gap: 15px; text-decoration: none; flex-grow: 1;">
-                                <img src="${lot.image || 'https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/1.png'}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 10px;">
+                                <img src="${lot.image || 'https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/1.png'}" alt="Аватар автора лота" style="width: 60px; height: 60px; object-fit: cover; border-radius: 10px;">
                                 <div style="min-width: 0;">
                                     <div style="color: #5F6E63; font-weight: 700; font-size: 16px; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${lot.name} ${statusText}</div>
-                                    <div style="color: #7A8F80; font-size: 14px;">${lot.category} | ${lot.currentPrice} ₽</div>
+                                    <div style="color: #353F37; font-size: 14px;">${lot.category} | ${lot.currentPrice} ₽</div>
                                 </div>
                             </a>
                             <div style="display: flex; gap: 10px; margin-left: 15px;">
@@ -828,6 +867,140 @@
                         }, 2000);
                     }
                 }
+            });
+                        // пополнение баланса
+            const openTopupBtn = document.getElementById('open-topup-btn');
+            const topupAmountModal = document.getElementById('topup-amount-modal');
+            const topupQrModal = document.getElementById('topup-qr-modal');
+            const closeTopupAmount = document.getElementById('close-topup-amount');
+            const nextToQrBtn = document.getElementById('next-to-qr-btn');
+            const confirmTopupBtn = document.getElementById('confirm-topup-btn');
+            const topupAmountInput = document.getElementById('topup-amount-input');
+            
+            let currentTopupAmount = 0;
+
+            // Открытие окна ввода суммы
+            openTopupBtn.addEventListener('click', () => {
+                topupAmountModal.style.display = 'flex';
+                topupAmountInput.value = '';
+            });
+
+            // Закрытие окна ввода
+            closeTopupAmount.addEventListener('click', () => topupAmountModal.style.display = 'none');
+
+                        // Переход к QR-коду
+            nextToQrBtn.addEventListener('click', () => {
+                const amount = parseFloat(topupAmountInput.value);
+                if (!amount || amount <= 0) {
+                    alert('Введите корректную сумму');
+                    return;
+                }
+                currentTopupAmount = amount;
+                document.getElementById('qr-amount-text').textContent = amount;
+                
+                // Очищаем старый QR-код, если он был
+                const qrContainer = document.getElementById('qrcode');
+                qrContainer.innerHTML = '';
+                
+                // Генерируем ссылку для QR-кода (ведет на нашу страницу успеха)
+                const fakePaymentUrl = `https://10.158.173.141/pages/payment-success.html?amount=${amount}`;
+                
+                // Создаем QR-код
+                new QRCode(qrContainer, {
+                    text: fakePaymentUrl,
+                    width: 180,
+                    height: 180,
+                    colorDark : "#5F6E63",
+                    colorLight : "#ffffff",
+                    correctLevel : QRCode.CorrectLevel.H
+                });
+                
+                topupAmountModal.style.display = 'none';
+                topupQrModal.style.display = 'flex';
+            });
+
+            // Подтверждение оплаты (Имитация)
+            confirmTopupBtn.addEventListener('click', async () => {
+                confirmTopupBtn.disabled = true;
+                confirmTopupBtn.textContent = 'Проверка платежа...';
+
+                try {
+                    const res = await fetch('/api/users/me/balance', {
+                        method: 'PATCH',
+                        headers: { 
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${getToken()}` 
+                        },
+                        body: JSON.stringify({ amount: currentTopupAmount })
+                    });
+
+                    const data = await res.json();
+
+                    if (res.ok) {
+                        alert(`Успешно! Ваш баланс пополнен на ${currentTopupAmount} ₽`);
+                        topupQrModal.style.display = 'none';
+                        
+                        // Обновляем баланс на странице без перезагрузки
+                        document.getElementById('profile-balance').textContent = `Баланс: ${data.balance} ₽`;
+                        if (currentUser) currentUser.balance = data.balance;
+                    } else {
+                        throw new Error(data.error || 'Ошибка пополнения');
+                    }
+                } catch (error) {
+                    alert(error.message);
+                } finally {
+                    confirmTopupBtn.disabled = false;
+                    confirmTopupBtn.textContent = 'Я оплатил';
+                }
+            });
+                        // === история ===
+            const openHistoryBtn = document.getElementById('open-history-btn');
+            const closeHistoryBtn = document.getElementById('close-history-btn');
+            const historyView = document.getElementById('history-view');
+            const historyList = document.getElementById('history-list');
+
+            openHistoryBtn.addEventListener('click', async () => {
+                mainProfileView.style.display = 'none';
+                settingsView.style.display = 'none';
+                notificationsView.style.display = 'none';
+                historyView.style.display = 'block';
+                pageTitle.textContent = 'История';
+
+                historyList.innerHTML = '<p style="text-align:center; color:#7A8F80;">Загрузка...</p>';
+
+                try {
+                    const res = await fetch('/api/users/me/history', {
+                        headers: { 'Authorization': `Bearer ${getToken()}` }
+                    });
+                    const history = await res.json();
+
+                    if (history.length === 0) {
+                        historyList.innerHTML = '<p style="text-align:center; color:#7A8F80;">У вас пока нет операций.</p>';
+                        return;
+                    }
+
+                    historyList.innerHTML = history.map(h => `
+                        <div style="padding: 15px; border-radius: 15px; background: #F5F7F5; display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <div style="color: #5F6E63; font-weight: 700; font-size: 18px;">${h.description}</div>
+                                <div style="color: #A6A6A6; font-size: 14px;">${new Date(h.createdAt).toLocaleString('ru-RU')}</div>
+                            </div>
+                            <div style="color: ${h.amount > 0 ? '#27ae60' : '#c0392b'}; font-weight: bold; font-size: 20px;">
+                                ${h.amount > 0 ? '+' : ''}${h.amount} ₽
+                            </div>
+                        </div>
+                    `).join('');
+
+                } catch (e) {
+                    console.error(e);
+                    historyList.innerHTML = '<p style="text-align:center; color:#c0392b;">Ошибка загрузки истории.</p>';
+                }
+            });
+
+            closeHistoryBtn.addEventListener('click', () => {
+                historyView.style.display = 'none';
+                mainProfileView.style.display = 'block';
+                pageTitle.textContent = 'Профиль';
             });
         });
     </script>

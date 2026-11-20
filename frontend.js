@@ -85,13 +85,57 @@ async function loadLotDetails() {
       bidBtn.style.cursor = 'not-allowed';
     }
 
-    // 3. Скрываем "КУПИТЬ СЕЙЧАС"
-    const buyBtn = document.getElementById('buy-now-btn');
-    if (buyBtn && isExpired) {
-        buyBtn.style.display = 'none';
+    // Проверка, является ли текущий пользователь автором лота
+    const currentUser = JSON.parse(localStorage.getItem('avabid_user'));
+    if (currentUser && Number(currentUser.id) === Number(lot.authorId)) {
+        // Если это автор — прячем кнопку ставки
+        if (bidBtn) bidBtn.style.display = 'none';
+    }
+    //4. Проверка админа(Кнопка удаления)
+    const adminDeleteBtn = document.getElementById('admin-delete-lot-btn');
+    if (adminDeleteBtn) {
+        const currentUser = JSON.parse(localStorage.getItem('avabid_user'));
+        // Показываем кнопку, только если это админ
+        if (currentUser && currentUser.role === 'Администратор') {
+            adminDeleteBtn.style.display = 'block';
+            
+            adminDeleteBtn.onclick = async () => {
+                const reason = prompt('Укажите причину удаления лота (автор получит уведомление):');
+                
+                if (reason === null) return; // Если нажали "Отмена" в окне prompt
+                if (!reason.trim()) {
+                    alert('Причина обязательна для заполнения!');
+                    return;
+                }
+
+                if (!confirm(`Вы уверены, что хотите удалить лот "${lot.name}"?`)) return;
+
+                try {
+                    const res = await fetch(`${API_URL}/lots/${lotId}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${localStorage.getItem('avabid_token')}`
+                        },
+                        body: JSON.stringify({ reason: reason })
+                    });
+
+                    if (res.ok) {
+                        alert('Лот удален. Автору отправлено уведомление.');
+                        window.location.href = '../index.html'; // Перенаправляем на главную
+                    } else {
+                        const err = await res.json();
+                        alert(err.error || 'Ошибка удаления');
+                    }
+                } catch (e) {
+                    console.error(e);
+                    alert('Ошибка сервера при удалении');
+                }
+            };
+        }
     }
 
-    // 4. Ссылка на автора и его аватарка
+    // 5. Ссылка на автора и его аватарка
     const authorLink = document.getElementById('author-link');
     if (authorLink) {
       authorLink.textContent = lot.author;
@@ -108,12 +152,18 @@ async function loadLotDetails() {
 
     if (lot.endTime) startCountdown(new Date(lot.endTime));
 
-    const bidsList = document.querySelector('.lot-bids-list');
+        const bidsList = document.querySelector('.lot-bids-list');
     if (bidsList && lot.bids.length > 0) {
       bidsList.innerHTML = lot.bids.map((bid) => `
-        <div class="bid-item">
-          <div class="bid-avatar"><img src="${bid.userAvatar || 'https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/1.jpg'}" alt="Avatar"></div>
-          <span class="bid-name">${bid.userName}:</span>
+        <div class="bid-item" style="display: flex; justify-content: space-between; align-items: center;">
+          
+          <a href="user-profile.html?id=${bid.userId}" style="display: flex; align-items: center; gap: 15px; text-decoration: none; color: inherit;">
+            <div class="bid-avatar">
+                <img src="${bid.userAvatar || 'https://utyklerfkkcbequrikil.supabase.co/storage/v1/object/public/avabid-images/1.jpg'}" alt="Avatar">
+            </div>
+            <span class="bid-name">${bid.userName}:</span>
+          </a>
+
           <span class="bid-amount">${bid.price}₽</span>
         </div>
       `).join('');
